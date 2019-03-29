@@ -1,5 +1,6 @@
 package app;
 
+import connectivity.ConnectionClass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,10 @@ public class Main extends Application
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(300);
+
+        ConnectionClass.createDB();
+        ConnectionClass.createTables();
+
         primaryStage.show();
     }
 

@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class LoginController
+public class LoginController extends Main
 {
     public AnchorPane anchorPane;
     public TextField loginField;
@@ -94,15 +94,18 @@ public class LoginController
                 resultSet.next();
                 sql = resultSet.getString(1);
 
-                Stage stage = new Stage();
+                //TODO...
                 switch( sql )
                 {
-                    case "Ksiegowa": stage.setScene(new Scene(fxmlLoader)); break;
-                    case "Logistyk": stage.setScene(new Scene(fxmlLoader)); break;
-                    case "Kierownik": stage.setScene(new Scene(fxmlLoader)); break;
-                    case "Kelner": stage.setScene(new Scene(fxmlLoader)); break;
+                    case "Ksiegowa":
+                        System.out.println("Ksiegowa"); break;
+                    case "Logistyk":
+                        System.out.println("Logistyk"); break;
+                    case "Kierownik":
+                        System.out.println("Kierownik"); break;
+                    case "Kelner":
+                        System.out.println( "Kelner" ); break;
                 }
-                stage.show();
 
                 primaryStage.close();
             }

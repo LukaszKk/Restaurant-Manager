@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class RegisterController
+public class RegisterController extends Main
 {
     public AnchorPane anchorPane;
     public Button signUpButton;
