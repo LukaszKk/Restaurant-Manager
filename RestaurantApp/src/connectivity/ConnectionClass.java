@@ -3,14 +3,15 @@ package connectivity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConnectionClass
 {
-    public Connection connection;
+    private Connection connection;
 
     public Connection getConnection()
     {
-        String dbName = "Login";
+        String dbName = "restaurant_db";
         String userName = "root";
         String password = "";
 
@@ -25,5 +26,34 @@ public class ConnectionClass
         }
 
         return connection;
+    }
+
+    public static void createTables()
+    {
+        Connection connection = new ConnectionClass().getConnection();
+        try
+        {
+            Statement statement = connection.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS user(name VARCHAR(100), password VARCHAR(100), position VARCHAR(100));";
+            statement.execute( sql );
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createDB()
+    {
+        try
+        {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=");
+            Statement statement = connection.createStatement();
+            statement.execute("CREATE DATABASE IF NOT EXISTS restaurant_db");
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+        }
     }
 }

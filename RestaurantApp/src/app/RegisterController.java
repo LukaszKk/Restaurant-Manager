@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class RegisterController
+public class RegisterController extends Main
 {
     public AnchorPane anchorPane;
     public Button signUpButton;
@@ -25,6 +25,7 @@ public class RegisterController
     public TextField password;
     public ChoiceBox<String> choiceBox;
     public Hyperlink back;
+    public Hyperlink exit;
 
     public void initialize()
     {
@@ -59,6 +60,16 @@ public class RegisterController
         {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Exit button clicked
+     * Close registration form
+     */
+    public void exitAction()
+    {
+        Stage registerStage = (Stage) anchorPane.getScene().getWindow();
+        registerStage.close();
     }
 
     /**
