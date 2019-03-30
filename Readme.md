@@ -15,3 +15,10 @@
  # Wyciąganie danych z tabeli:
   - przykład w RegisterController -> signUpAction()
   - począwszy do: ConnectionClass connectionClass = new ConnectionClass();
+  
+  
+  
+  # Diagramy przypadków użycia:
+  - 1. Logowanie do systemu: https://www.lucidchart.com/invitations/accept/2c575178-9d05-4663-afe4-24800d9f6646
+  - 2. Dodawanie nowych dań i edycja istniejących: https://www.lucidchart.com/invitations/accept/10ab636b-438d-4c81-9159-e2e66f15012b
+  - 3. Dodawanie i edycja pracowników: https://www.lucidchart.com/invitations/accept/b3fb0938-defd-495e-977b-6cd70496989b
