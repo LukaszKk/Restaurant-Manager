@@ -4,10 +4,7 @@ import connectivity.ConnectionClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -27,13 +24,23 @@ public class RegisterController extends Main
     public Hyperlink back;
     public Hyperlink exit;
 
+    /**
+     *
+     */
     public void initialize()
     {
-        choiceBox.getItems().add("Logistyk");
-        choiceBox.getItems().add("Kierownik");
-        choiceBox.getItems().add("Kelner");
-        choiceBox.getItems().add("Ksiegowa");
-        choiceBox.setValue("Kierownik");
+        if( Main.isFirstTimeRun )
+        {
+            choiceBox.getItems().add("Kierownik");
+            choiceBox.setValue("Kierownik");
+        }
+        else
+        {
+            choiceBox.getItems().add("Logistyk");
+            choiceBox.getItems().add("Kelner");
+            choiceBox.setValue("Kelner");
+        }
+
         userName.setFocusTraversable(false);
         password.setFocusTraversable(false);
     }
@@ -49,7 +56,7 @@ public class RegisterController extends Main
 
         try
         {
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("views/login.fxml"));
+            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader));
             stage.show();
@@ -82,27 +89,11 @@ public class RegisterController extends Main
      */
     public void signUpAction()
     {
-        int checked = 2;
-        if( userName.getText().length() == 0 )
-        {
-            userName.setPromptText( "User name must be filled!");
-            userName.setStyle("-fx-prompt-text-fill: #ff0000");
-            password.clear();
-            --checked;
-        }
-
-        if( password.getText().length() == 0 )
-        {
-            password.setPromptText( "Password must be filled!");
-            password.setStyle("-fx-prompt-text-fill: #ff0000");
-            --checked;
-        }
-
+        int checked = LoginController.checkFieldsFill( userName, password );
         if( checked != 2 )
             return;
 
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
+        Connection connection = new ConnectionClass().getConnection();
 
         try
         {

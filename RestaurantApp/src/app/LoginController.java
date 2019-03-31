@@ -25,10 +25,34 @@ public class LoginController extends Main
     public Label loginLabel;
     public Hyperlink signUpHLink;
 
+    /**
+     * set fields initial property
+     */
     public void initialize()
     {
         loginField.setFocusTraversable(false);
         passwordField.setFocusTraversable(false);
+    }
+
+    static int checkFieldsFill( TextField field, TextField password )
+    {
+        int checked = 2;
+        if( field.getText().length() == 0 )
+        {
+            field.setPromptText( "User name must be filled!");
+            field.setStyle("-fx-prompt-text-fill: #ff0000");
+            password.clear();
+            --checked;
+        }
+
+        if( password.getText().length() == 0 )
+        {
+            password.setPromptText( "Password must be filled!");
+            password.setStyle("-fx-prompt-text-fill: #ff0000");
+            --checked;
+        }
+
+        return checked;
     }
 
     /**
@@ -39,22 +63,7 @@ public class LoginController extends Main
      */
     public void signInButtonAction()
     {
-        int checked = 2;
-        if( loginField.getText().length() == 0 )
-        {
-            loginField.setPromptText( "User name must be filled!");
-            loginField.setStyle("-fx-prompt-text-fill: #ff0000");
-            passwordField.clear();
-            --checked;
-        }
-
-        if( passwordField.getText().length() == 0 )
-        {
-            passwordField.setPromptText( "Password must be filled!");
-            passwordField.setStyle("-fx-prompt-text-fill: #ff0000");
-            --checked;
-        }
-
+        int checked = checkFieldsFill( loginField, passwordField );
         if( checked != 2 )
             return;
 
@@ -95,17 +104,23 @@ public class LoginController extends Main
                 sql = resultSet.getString(1);
 
                 //TODO...
+                String openViewName = null;
                 switch( sql )
                 {
                     case "Ksiegowa":
-                        System.out.println("Ksiegowa"); break;
+                        break;
                     case "Logistyk":
-                        System.out.println("Logistyk"); break;
+                        break;
                     case "Kierownik":
-                        System.out.println("Kierownik"); break;
+                        openViewName = "views/manager.fxml"; break;
                     case "Kelner":
-                        System.out.println( "Kelner" ); break;
+                        break;
                 }
+
+                Parent fxmlLoader = FXMLLoader.load(getClass().getResource(openViewName));
+                Stage stage = new Stage();
+                stage.setScene(new Scene(fxmlLoader));
+                stage.show();
 
                 primaryStage.close();
             }
@@ -116,7 +131,7 @@ public class LoginController extends Main
                 passwordField.setStyle("-fx-prompt-text-fill: #ff0000");
             }
         }
-        catch( SQLException e )
+        catch( SQLException | IOException e )
         {
             e.printStackTrace();
         }
@@ -132,7 +147,7 @@ public class LoginController extends Main
         {
             Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
 
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("views/register.fxml"));
+            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/register.fxml"));
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(new Scene(fxmlLoader));
@@ -144,6 +159,5 @@ public class LoginController extends Main
         {
             e.printStackTrace();
         }
-
     }
 }
