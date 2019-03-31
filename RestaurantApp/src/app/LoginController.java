@@ -23,7 +23,6 @@ public class LoginController extends Main
     public PasswordField passwordField;
     public Button signInButton;
     public Label loginLabel;
-    public Hyperlink signUpHLink;
 
     /**
      * set fields initial property
@@ -112,7 +111,7 @@ public class LoginController extends Main
                     case "Logistyk":
                         break;
                     case "Kierownik":
-                        openViewName = "views/manager.fxml"; break;
+                        openViewName = "/views/manager.fxml"; break;
                     case "Kelner":
                         break;
                 }
@@ -137,6 +136,8 @@ public class LoginController extends Main
         }
     }
 
+
+    //TODO move
     /**
      * Sign Up button clicked
      * Open registration form

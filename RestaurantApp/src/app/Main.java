@@ -39,6 +39,17 @@ public class Main extends Application
     }
 
     /**
+     * opens given form
+     * @param fxmlLoader
+     */
+    static void loadStage( Parent fxmlLoader )
+    {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(fxmlLoader));
+        stage.show();
+    }
+
+    /**
      * initial method
      * @param primaryStage
      */

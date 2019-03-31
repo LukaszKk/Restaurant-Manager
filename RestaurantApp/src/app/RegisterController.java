@@ -3,7 +3,6 @@ package app;
 import connectivity.ConnectionClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -25,21 +24,23 @@ public class RegisterController extends Main
     public Hyperlink exit;
 
     /**
-     *
+     * set initial properties
      */
     public void initialize()
     {
-        if( Main.isFirstTimeRun )
+        if( !Main.isFirstTimeRun )
         {
-            choiceBox.getItems().add("Kierownik");
-            choiceBox.setValue("Kierownik");
+            back.setVisible(true);
+            choiceBox.getItems().add("Logistyk");
+            choiceBox.getItems().add("Kelner");
+            choiceBox.getItems().add("Ksiegowa");
         }
         else
         {
-            choiceBox.getItems().add("Logistyk");
-            choiceBox.getItems().add("Kelner");
-            choiceBox.setValue("Kelner");
+            back.setVisible(false);
         }
+        choiceBox.getItems().add("Kierownik");
+        choiceBox.setValue("Kierownik");
 
         userName.setFocusTraversable(false);
         password.setFocusTraversable(false);
@@ -53,20 +54,33 @@ public class RegisterController extends Main
     public void backAction()
     {
         Stage registerStage = (Stage) anchorPane.getScene().getWindow();
-
         try
         {
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(fxmlLoader));
-            stage.show();
-
-            registerStage.close();
+            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/workers.fxml"));
+            Main.loadStage( fxmlLoader );
         }
         catch( IOException e )
         {
             e.printStackTrace();
         }
+
+        registerStage.close();
+    }
+
+    public void loadLogin()
+    {
+        Stage managerStage = (Stage) anchorPane.getScene().getWindow();
+        try
+        {
+            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
+            RegisterController.loadStage( fxmlLoader );
+        }
+        catch( IOException e )
+        {
+            e.printStackTrace();
+        }
+
+        managerStage.close();
     }
 
     /**
@@ -112,7 +126,10 @@ public class RegisterController extends Main
             }
             sql = "INSERT INTO user VALUES('"+userName.getText()+"', '"+password.getText()+"', '"+choiceBox.getValue()+"');";
             statement.executeUpdate( sql );
-            backAction();
+            if( !Main.isFirstTimeRun )
+                backAction();
+            else
+                loadLogin();
         }
         catch( SQLException e )
         {
