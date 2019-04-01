@@ -121,19 +121,22 @@ public class LoginController extends Main
                 {
                     case "Accountant":
                         Main.loggedAs = "Accountant";
-                        //TODO...
+                        //TODO... replace "/views/login.fxml"
+                            openViewName = "/views/login.fxml";
                         break;
                     case "Logistician":
                         Main.loggedAs = "Logistician";
-                        //TODO...
+                        //TODO... replace "/views/login.fxml"
+                            openViewName = "/views/login.fxml";
                         break;
                     case "Waiter":
                         Main.loggedAs = "Waiter";
-                        //TODO...
+                        //TODO... replace "/views/login.fxml"
+                            openViewName = "/views/login.fxml";
                         break;
                     case "Manager":
                         Main.loggedAs = "Manager";
-                        openViewName = "/views/manager.fxml";
+                            openViewName = "/views/manager.fxml";
                         break;
                     default:
                         openViewName = "/views/login.fxml";
