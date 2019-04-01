@@ -3,7 +3,6 @@ package app;
 import connectivity.ConnectionClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -154,6 +153,7 @@ public class LoginController extends Main
                 passwordField.setPromptText( "Invalid user name or password!");
                 passwordField.setStyle("-fx-prompt-text-fill: #ff0000");
             }
+            connection.close();
         }
         catch( SQLException | IOException e )
         {

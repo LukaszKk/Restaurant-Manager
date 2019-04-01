@@ -1,6 +1,7 @@
 package app;
 
 import connectivity.ConnectionClass;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -61,7 +62,8 @@ public class WorkersController
             Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
             Main.loadStage(fxmlLoader);
             primaryStage.close();
-        } catch( IOException e )
+        }
+        catch( IOException e )
         {
             e.printStackTrace();
         }
@@ -77,7 +79,14 @@ public class WorkersController
 
         for( int i = 0; i < name.size(); i++ )
         {
-            listView.getItems().add( "Name: \"" + name.get(i) + "\" Position: " + position.get(i) );
+            Hyperlink hp = new Hyperlink( "Name: \"" + name.get(i) + "\" Position: " + position.get(i) );
+            int finalI = i;
+            hp.setOnAction(actionEvent ->
+            {
+                EditWorkersController.userNameDB = name.get(finalI);
+                loadView( "editWorkers" );
+            } );
+            listView.getItems().add( hp );
         }
     }
 
@@ -92,6 +101,7 @@ public class WorkersController
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
                 result.add( resultSet.getString(1) );
+            connection.close();
         }
         catch( SQLException e )
         {
