@@ -87,6 +87,7 @@ public class Main extends Application
             while( resultSet.next() )
                 if( resultSet.getString(1).equals("Manager") )
                     return false;
+            connection.close();
         }
         catch( SQLException e )
         {

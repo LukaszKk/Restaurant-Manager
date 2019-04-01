@@ -3,7 +3,6 @@ package app;
 import connectivity.ConnectionClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -121,19 +120,22 @@ public class LoginController extends Main
                 {
                     case "Accountant":
                         Main.loggedAs = "Accountant";
-                        //TODO...
+                        //TODO... replace "/views/login.fxml"
+                            openViewName = "/views/login.fxml";
                         break;
                     case "Logistician":
                         Main.loggedAs = "Logistician";
-                        //TODO...
+                        //TODO... replace "/views/login.fxml"
+                            openViewName = "/views/login.fxml";
                         break;
                     case "Waiter":
                         Main.loggedAs = "Waiter";
-                        //TODO...
+                        //TODO... replace "/views/login.fxml"
+                            openViewName = "/views/login.fxml";
                         break;
                     case "Manager":
                         Main.loggedAs = "Manager";
-                        openViewName = "/views/manager.fxml";
+                            openViewName = "/views/manager.fxml";
                         break;
                     default:
                         openViewName = "/views/login.fxml";
@@ -151,6 +153,7 @@ public class LoginController extends Main
                 passwordField.setPromptText( "Invalid user name or password!");
                 passwordField.setStyle("-fx-prompt-text-fill: #ff0000");
             }
+            connection.close();
         }
         catch( SQLException | IOException e )
         {

@@ -128,14 +128,17 @@ public class RegisterController extends Main
             {
                 if( resultSet.getString(1).equals(userName.getText()) )
                 {
-                    userName.setPromptText( "User name is taken!");
+                    userName.clear();
+                    userName.setPromptText( "User name is already taken!");
                     userName.setStyle("-fx-prompt-text-fill: #ff0000");
                     password.clear();
+                    connection.close();
                     return;
                 }
             }
             sql = "INSERT INTO users VALUES('"+userName.getText()+"', '"+password.getText()+"', '"+choiceBox.getValue()+"');";
             statement.executeUpdate( sql );
+            connection.close();
             if( !Main.isFirstTimeRun )
                 backAction();
             else

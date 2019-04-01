@@ -36,6 +36,7 @@ public class ConnectionClass
             Statement statement = connection.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS users(name VARCHAR(100), password VARCHAR(100), position VARCHAR(100));";
             statement.execute( sql );
+            connection.close();
         }
         catch( SQLException e )
         {
@@ -50,6 +51,7 @@ public class ConnectionClass
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=");
             Statement statement = connection.createStatement();
             statement.execute("CREATE DATABASE IF NOT EXISTS restaurant_db");
+            connection.close();
         }
         catch( SQLException e )
         {
