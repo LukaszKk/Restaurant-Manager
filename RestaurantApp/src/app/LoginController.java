@@ -116,7 +116,6 @@ public class LoginController extends Main
                 resultSet.next();
                 sql = resultSet.getString(1);
 
-<<<<<<< HEAD
                 String openViewName = null;
                 switch( sql )
                 {
@@ -143,20 +142,6 @@ public class LoginController extends Main
 
                 Parent fxmlLoader = FXMLLoader.load(getClass().getResource(openViewName));
                 Main.loadStage( fxmlLoader );
-=======
-                //TODO...
-                switch( sql )
-                {
-                    case "Ksiegowa":
-                        System.out.println("Ksiegowa"); break;
-                    case "Logistyk":
-                        System.out.println("Logistyk"); break;
-                    case "Kierownik":
-                        System.out.println("Kierownik"); break;
-                    case "Kelner":
-                        System.out.println( "Kelner" ); break;
-                }
->>>>>>> master
 
                 primaryStage.close();
             }

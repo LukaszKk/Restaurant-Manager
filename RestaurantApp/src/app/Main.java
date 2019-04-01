@@ -60,7 +60,6 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage)
     {
-<<<<<<< HEAD
         ConnectionClass.createDB();
         ConnectionClass.createTables();
 
@@ -71,18 +70,6 @@ public class Main extends Application
         {
             System.out.println( e.getMessage() );
         }
-=======
-        Parent root = FXMLLoader.load( getClass().getResource("/app/views/login.fxml"));
-        primaryStage.setTitle("Welcome");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.setMinWidth(400);
-        primaryStage.setMinHeight(300);
-
-        ConnectionClass.createDB();
-        ConnectionClass.createTables();
-
-        primaryStage.show();
->>>>>>> master
     }
 
     /**
