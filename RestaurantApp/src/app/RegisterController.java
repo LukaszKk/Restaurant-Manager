@@ -3,11 +3,7 @@ package app;
 import connectivity.ConnectionClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -25,14 +21,35 @@ public class RegisterController extends Main
     public TextField password;
     public ChoiceBox<String> choiceBox;
     public Hyperlink back;
+    public Hyperlink exit;
+    public Label loggedAs;
 
+    /**
+     * set initial properties
+     * disable focusing cursor on TextField
+     * different views if its first time run
+     */
     public void initialize()
     {
-        choiceBox.getItems().add("Logistyk");
-        choiceBox.getItems().add("Kierownik");
-        choiceBox.getItems().add("Kelner");
-        choiceBox.getItems().add("Ksiegowa");
-        choiceBox.setValue("Kierownik");
+        if( !Main.isFirstTimeRun )
+        {
+            back.setVisible(true);
+            exit.setText( "Log out" );
+            loggedAs.setVisible(true);
+            loggedAs.setText( "Logged as: " + Main.loggedAs );
+            choiceBox.getItems().add("Logistician");
+            choiceBox.getItems().add("Waiter");
+            choiceBox.getItems().add("Accountant");
+        }
+        else
+        {
+            back.setVisible(false);
+            exit.setText( "Exit" );
+            loggedAs.setVisible(false);
+        }
+        choiceBox.getItems().add("Manager");
+        choiceBox.setValue("Manager");
+
         userName.setFocusTraversable(false);
         password.setFocusTraversable(false);
     }
@@ -44,21 +61,46 @@ public class RegisterController extends Main
      */
     public void backAction()
     {
-        Stage registerStage = (Stage) anchorPane.getScene().getWindow();
+        loadView( "workers" );
+    }
 
+    public void loadLogin()
+    {
+        loadView( "login" );
+    }
+
+    /**
+     * load given view
+     * @param view
+     */
+    private void loadView( String view )
+    {
+        Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
         try
         {
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("views/login.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(fxmlLoader));
-            stage.show();
-
-            registerStage.close();
+            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
+            Main.loadStage( fxmlLoader );
+            primaryStage.close();
         }
         catch( IOException e )
         {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Exit button clicked
+     * Close registration form
+     */
+    public void exitAction()
+    {
+        if( Main.isFirstTimeRun )
+        {
+            Stage registerStage = (Stage) anchorPane.getScene().getWindow();
+            registerStage.close();
+        }
+        else
+            loadLogin();
     }
 
     /**
@@ -71,32 +113,16 @@ public class RegisterController extends Main
      */
     public void signUpAction()
     {
-        int checked = 2;
-        if( userName.getText().length() == 0 )
-        {
-            userName.setPromptText( "User name must be filled!");
-            userName.setStyle("-fx-prompt-text-fill: #ff0000");
-            password.clear();
-            --checked;
-        }
-
-        if( password.getText().length() == 0 )
-        {
-            password.setPromptText( "Password must be filled!");
-            password.setStyle("-fx-prompt-text-fill: #ff0000");
-            --checked;
-        }
-
+        int checked = LoginController.checkFieldsFill( userName, password );
         if( checked != 2 )
             return;
 
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = connectionClass.getConnection();
+        Connection connection = new ConnectionClass().getConnection();
 
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT name FROM user;";
+            String sql = "SELECT name FROM users;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
             {
@@ -108,9 +134,15 @@ public class RegisterController extends Main
                     return;
                 }
             }
-            sql = "INSERT INTO user VALUES('"+userName.getText()+"', '"+password.getText()+"', '"+choiceBox.getValue()+"');";
+            sql = "INSERT INTO users VALUES('"+userName.getText()+"', '"+password.getText()+"', '"+choiceBox.getValue()+"');";
             statement.executeUpdate( sql );
-            backAction();
+            if( !Main.isFirstTimeRun )
+                backAction();
+            else
+            {
+                Main.isFirstTimeRun = false;
+                loadLogin();
+            }
         }
         catch( SQLException e )
         {

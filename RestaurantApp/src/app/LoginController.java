@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -23,12 +22,50 @@ public class LoginController extends Main
     public PasswordField passwordField;
     public Button signInButton;
     public Label loginLabel;
-    public Hyperlink signUpHLink;
+    public Hyperlink exitButton;
 
+    /**
+     * set fields initial property
+     * disable focusing cursor on TextField
+     */
     public void initialize()
     {
         loginField.setFocusTraversable(false);
         passwordField.setFocusTraversable(false);
+    }
+
+    /**
+     * checks if fields were filed correctly
+     * else prints a message
+     * @param field
+     * @param password
+     * @return
+     */
+    static int checkFieldsFill( TextField field, TextField password )
+    {
+        int checked = 2;
+        if( field.getText().length() == 0 )
+        {
+            field.setPromptText( "User name must be filled!");
+            field.setStyle("-fx-prompt-text-fill: #ff0000");
+            password.clear();
+            --checked;
+        }
+
+        if( password.getText().length() == 0 )
+        {
+            password.setPromptText( "Password must be filled!");
+            password.setStyle("-fx-prompt-text-fill: #ff0000");
+            --checked;
+        }
+
+        return checked;
+    }
+
+    public void exitAction()
+    {
+        Stage registerStage = (Stage) anchorPane.getScene().getWindow();
+        registerStage.close();
     }
 
     /**
@@ -39,22 +76,7 @@ public class LoginController extends Main
      */
     public void signInButtonAction()
     {
-        int checked = 2;
-        if( loginField.getText().length() == 0 )
-        {
-            loginField.setPromptText( "User name must be filled!");
-            loginField.setStyle("-fx-prompt-text-fill: #ff0000");
-            passwordField.clear();
-            --checked;
-        }
-
-        if( passwordField.getText().length() == 0 )
-        {
-            passwordField.setPromptText( "Password must be filled!");
-            passwordField.setStyle("-fx-prompt-text-fill: #ff0000");
-            --checked;
-        }
-
+        int checked = checkFieldsFill( loginField, passwordField );
         if( checked != 2 )
             return;
 
@@ -64,7 +86,7 @@ public class LoginController extends Main
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT name FROM user;";
+            String sql = "SELECT name FROM users;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
             {
@@ -75,14 +97,14 @@ public class LoginController extends Main
                 }
             }
 
-            sql = "SELECT password FROM user;";
+            sql = "SELECT password FROM users;";
             resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
             {
                 if( resultSet.getString(1).equals(passwordField.getText()) )
                 {
                     --checked;
-                    sql = "SELECT position FROM user WHERE password = '" + passwordField.getText() + "';";
+                    sql = "SELECT position FROM users WHERE password = '" + passwordField.getText() + "';";
                     break;
                 }
             }
@@ -94,6 +116,34 @@ public class LoginController extends Main
                 resultSet.next();
                 sql = resultSet.getString(1);
 
+<<<<<<< HEAD
+                String openViewName = null;
+                switch( sql )
+                {
+                    case "Accountant":
+                        Main.loggedAs = "Accountant";
+                        //TODO...
+                        break;
+                    case "Logistician":
+                        Main.loggedAs = "Logistician";
+                        //TODO...
+                        break;
+                    case "Waiter":
+                        Main.loggedAs = "Waiter";
+                        //TODO...
+                        break;
+                    case "Manager":
+                        Main.loggedAs = "Manager";
+                        openViewName = "/views/manager.fxml";
+                        break;
+                    default:
+                        openViewName = "/views/login.fxml";
+                        break;
+                }
+
+                Parent fxmlLoader = FXMLLoader.load(getClass().getResource(openViewName));
+                Main.loadStage( fxmlLoader );
+=======
                 //TODO...
                 switch( sql )
                 {
@@ -106,6 +156,7 @@ public class LoginController extends Main
                     case "Kelner":
                         System.out.println( "Kelner" ); break;
                 }
+>>>>>>> master
 
                 primaryStage.close();
             }
@@ -116,34 +167,9 @@ public class LoginController extends Main
                 passwordField.setStyle("-fx-prompt-text-fill: #ff0000");
             }
         }
-        catch( SQLException e )
+        catch( SQLException | IOException e )
         {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Sign Up button clicked
-     * Open registration form
-     */
-    public void signUpButtonAction()
-    {
-        try
-        {
-            Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("views/register.fxml"));
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(new Scene(fxmlLoader));
-            stage.show();
-
-            primaryStage.close();
-        }
-        catch( IOException e )
-        {
-            e.printStackTrace();
-        }
-
     }
 }
