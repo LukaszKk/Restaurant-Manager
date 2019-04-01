@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,6 +17,7 @@ import java.sql.Statement;
 public class Main extends Application
 {
     static boolean isFirstTimeRun;
+    static String loggedAs;
 
     /**
      * load starting stage depending on if its first time run app
@@ -35,6 +37,7 @@ public class Main extends Application
         stage.setScene(new Scene(root, 600, 400));
         stage.setMinWidth(400);
         stage.setMinHeight(300);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 
@@ -46,6 +49,7 @@ public class Main extends Application
     {
         Stage stage = new Stage();
         stage.setScene(new Scene(fxmlLoader));
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 
@@ -78,10 +82,10 @@ public class Main extends Application
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT position FROM user;";
+            String sql = "SELECT position FROM users;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
-                if( resultSet.getString(1).equals("Kierownik") )
+                if( resultSet.getString(1).equals("Manager") )
                     return false;
         }
         catch( SQLException e )

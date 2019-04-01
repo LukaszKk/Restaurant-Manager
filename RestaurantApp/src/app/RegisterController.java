@@ -22,25 +22,33 @@ public class RegisterController extends Main
     public ChoiceBox<String> choiceBox;
     public Hyperlink back;
     public Hyperlink exit;
+    public Label loggedAs;
 
     /**
      * set initial properties
+     * disable focusing cursor on TextField
+     * different views if its first time run
      */
     public void initialize()
     {
         if( !Main.isFirstTimeRun )
         {
             back.setVisible(true);
-            choiceBox.getItems().add("Logistyk");
-            choiceBox.getItems().add("Kelner");
-            choiceBox.getItems().add("Ksiegowa");
+            exit.setText( "Log out" );
+            loggedAs.setVisible(true);
+            loggedAs.setText( "Logged as: " + Main.loggedAs );
+            choiceBox.getItems().add("Logistician");
+            choiceBox.getItems().add("Waiter");
+            choiceBox.getItems().add("Accountant");
         }
         else
         {
             back.setVisible(false);
+            exit.setText( "Exit" );
+            loggedAs.setVisible(false);
         }
-        choiceBox.getItems().add("Kierownik");
-        choiceBox.setValue("Kierownik");
+        choiceBox.getItems().add("Manager");
+        choiceBox.setValue("Manager");
 
         userName.setFocusTraversable(false);
         password.setFocusTraversable(false);
@@ -53,34 +61,31 @@ public class RegisterController extends Main
      */
     public void backAction()
     {
-        Stage registerStage = (Stage) anchorPane.getScene().getWindow();
-        try
-        {
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/workers.fxml"));
-            Main.loadStage( fxmlLoader );
-        }
-        catch( IOException e )
-        {
-            e.printStackTrace();
-        }
-
-        registerStage.close();
+        loadView( "workers" );
     }
 
     public void loadLogin()
     {
-        Stage managerStage = (Stage) anchorPane.getScene().getWindow();
+        loadView( "login" );
+    }
+
+    /**
+     * load given view
+     * @param view
+     */
+    private void loadView( String view )
+    {
+        Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
         try
         {
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-            RegisterController.loadStage( fxmlLoader );
+            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
+            Main.loadStage( fxmlLoader );
+            primaryStage.close();
         }
         catch( IOException e )
         {
             e.printStackTrace();
         }
-
-        managerStage.close();
     }
 
     /**
@@ -89,8 +94,13 @@ public class RegisterController extends Main
      */
     public void exitAction()
     {
-        Stage registerStage = (Stage) anchorPane.getScene().getWindow();
-        registerStage.close();
+        if( Main.isFirstTimeRun )
+        {
+            Stage registerStage = (Stage) anchorPane.getScene().getWindow();
+            registerStage.close();
+        }
+        else
+            loadLogin();
     }
 
     /**
@@ -112,7 +122,7 @@ public class RegisterController extends Main
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT name FROM user;";
+            String sql = "SELECT name FROM users;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
             {
@@ -124,12 +134,15 @@ public class RegisterController extends Main
                     return;
                 }
             }
-            sql = "INSERT INTO user VALUES('"+userName.getText()+"', '"+password.getText()+"', '"+choiceBox.getValue()+"');";
+            sql = "INSERT INTO users VALUES('"+userName.getText()+"', '"+password.getText()+"', '"+choiceBox.getValue()+"');";
             statement.executeUpdate( sql );
             if( !Main.isFirstTimeRun )
                 backAction();
             else
+            {
+                Main.isFirstTimeRun = false;
                 loadLogin();
+            }
         }
         catch( SQLException e )
         {

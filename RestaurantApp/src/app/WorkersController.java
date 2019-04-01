@@ -10,11 +10,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ManagerController
+public class WorkersController
 {
     public AnchorPane anchorPane;
+    public Hyperlink backButton;
+    public Button createAccountButton;
     public Hyperlink logOutButton;
-    public Button workersButton;
     public Label loggedAs;
 
     public void initialize()
@@ -22,14 +23,19 @@ public class ManagerController
         loggedAs.setText( "Logged as: " + Main.loggedAs );
     }
 
-    public void workersClicked()
+    public void backAction()
     {
-        loadView( "workers");
+        loadView( "manager" );
     }
 
-    public void logOutClicked()
+    public void logOutAction()
     {
         loadView( "login" );
+    }
+
+    public void createAccountAction()
+    {
+        loadView( "register" );
     }
 
     /**
@@ -38,16 +44,17 @@ public class ManagerController
      */
     private void loadView( String view )
     {
-        Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
         try
         {
+            Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
+
             Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
             Main.loadStage( fxmlLoader );
+            primaryStage.close();
         }
         catch( IOException e )
         {
             e.printStackTrace();
         }
-        primaryStage.close();
     }
 }

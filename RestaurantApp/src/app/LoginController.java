@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -23,9 +22,11 @@ public class LoginController extends Main
     public PasswordField passwordField;
     public Button signInButton;
     public Label loginLabel;
+    public Hyperlink exitButton;
 
     /**
      * set fields initial property
+     * disable focusing cursor on TextField
      */
     public void initialize()
     {
@@ -33,6 +34,13 @@ public class LoginController extends Main
         passwordField.setFocusTraversable(false);
     }
 
+    /**
+     * checks if fields were filed correctly
+     * else prints a message
+     * @param field
+     * @param password
+     * @return
+     */
     static int checkFieldsFill( TextField field, TextField password )
     {
         int checked = 2;
@@ -54,6 +62,12 @@ public class LoginController extends Main
         return checked;
     }
 
+    public void exitAction()
+    {
+        Stage registerStage = (Stage) anchorPane.getScene().getWindow();
+        registerStage.close();
+    }
+
     /**
      * Sign In button clicked
      * Check if fields are filled
@@ -72,7 +86,7 @@ public class LoginController extends Main
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT name FROM user;";
+            String sql = "SELECT name FROM users;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
             {
@@ -83,14 +97,14 @@ public class LoginController extends Main
                 }
             }
 
-            sql = "SELECT password FROM user;";
+            sql = "SELECT password FROM users;";
             resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
             {
                 if( resultSet.getString(1).equals(passwordField.getText()) )
                 {
                     --checked;
-                    sql = "SELECT position FROM user WHERE password = '" + passwordField.getText() + "';";
+                    sql = "SELECT position FROM users WHERE password = '" + passwordField.getText() + "';";
                     break;
                 }
             }
@@ -102,24 +116,32 @@ public class LoginController extends Main
                 resultSet.next();
                 sql = resultSet.getString(1);
 
-                //TODO...
                 String openViewName = null;
                 switch( sql )
                 {
-                    case "Ksiegowa":
+                    case "Accountant":
+                        Main.loggedAs = "Accountant";
+                        //TODO...
                         break;
-                    case "Logistyk":
+                    case "Logistician":
+                        Main.loggedAs = "Logistician";
+                        //TODO...
                         break;
-                    case "Kierownik":
-                        openViewName = "/views/manager.fxml"; break;
-                    case "Kelner":
+                    case "Waiter":
+                        Main.loggedAs = "Waiter";
+                        //TODO...
+                        break;
+                    case "Manager":
+                        Main.loggedAs = "Manager";
+                        openViewName = "/views/manager.fxml";
+                        break;
+                    default:
+                        openViewName = "/views/login.fxml";
                         break;
                 }
 
                 Parent fxmlLoader = FXMLLoader.load(getClass().getResource(openViewName));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(fxmlLoader));
-                stage.show();
+                Main.loadStage( fxmlLoader );
 
                 primaryStage.close();
             }
@@ -131,32 +153,6 @@ public class LoginController extends Main
             }
         }
         catch( SQLException | IOException e )
-        {
-            e.printStackTrace();
-        }
-    }
-
-
-    //TODO move
-    /**
-     * Sign Up button clicked
-     * Open registration form
-     */
-    public void signUpButtonAction()
-    {
-        try
-        {
-            Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/register.fxml"));
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(new Scene(fxmlLoader));
-            stage.show();
-
-            primaryStage.close();
-        }
-        catch( IOException e )
         {
             e.printStackTrace();
         }
