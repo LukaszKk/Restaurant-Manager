@@ -34,7 +34,9 @@ public class Main extends Application
             root = FXMLLoader.load( getClass().getResource("/views/login.fxml"));
 
         stage.setTitle("Welcome");
-        stage.setScene(new Scene(root, 600, 400));
+        Scene scene = new Scene(root);
+        //scene.getStylesheets().add("style.css");
+        stage.setScene(scene);
         stage.setMinWidth(400);
         stage.setMinHeight(300);
         stage.initStyle(StageStyle.UNDECORATED);

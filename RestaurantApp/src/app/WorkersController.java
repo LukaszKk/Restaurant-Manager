@@ -1,7 +1,6 @@
 package app;
 
 import connectivity.ConnectionClass;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
