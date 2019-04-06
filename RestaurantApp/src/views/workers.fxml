@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3562e8;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.WorkersController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151928;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.WorkersController">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="140.0" style="-fx-background-color: #dee9fc;">
+      <AnchorPane prefHeight="400.0" prefWidth="140.0" style="-fx-background-color: #151928;">
          <children>
-            <Hyperlink fx:id="backButton" layoutX="54.0" layoutY="14.0" onAction="#backAction" text="Back" textFill="#141313" />
+            <Hyperlink fx:id="backButton" layoutX="54.0" layoutY="14.0" onAction="#backAction" text="Back" textFill="#646464" />
             <Button fx:id="createAccountButton" layoutX="13.0" layoutY="80.0" mnemonicParsing="false" onAction="#createAccountAction" prefHeight="25.0" prefWidth="115.0" text="Create Account" />
             <Label fx:id="loggedAs" layoutX="14.0" layoutY="369.0" text="Logged in" />
          </children>
       </AnchorPane>
-      <Hyperlink fx:id="logOutButton" layoutX="527.0" layoutY="14.0" onAction="#logOutAction" text="Log out" textFill="#0d0d0d" />
+      <Hyperlink fx:id="logOutButton" layoutX="527.0" layoutY="14.0" onAction="#logOutAction" text="Log out" textFill="#646464" />
       <Label layoutX="149.0" layoutY="17.0" text="You are on Workers site!">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ListView fx:id="listView" layoutX="140.0" layoutY="60.0" prefHeight="340.0" prefWidth="460.0" />
+      <ListView fx:id="listView" layoutX="140.0" layoutY="80.0" prefHeight="320.0" prefWidth="347.0" />
    </children>
 </AnchorPane>
