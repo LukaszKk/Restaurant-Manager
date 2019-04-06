@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -20,7 +22,7 @@
             <Font size="13.0" />
          </font>
       </TextField>
-      <Button fx:id="signInButton" layoutX="262.0" layoutY="278.0" mnemonicParsing="false" onAction="#signInButtonAction" prefHeight="25.0" prefWidth="77.0" text="Sign in">
+      <Button fx:id="signInButton" layoutX="262.0" layoutY="280.0" mnemonicParsing="false" onAction="#signInButtonAction" prefHeight="25.0" prefWidth="77.0" text="Sign in">
          <font>
             <Font size="13.0" />
          </font>
@@ -31,5 +33,15 @@
          </font>
       </PasswordField>
       <Hyperlink fx:id="exitButton" layoutX="533.0" layoutY="14.0" onAction="#exitAction" text="Exit" textFill="#646464" />
+      <ImageView fitHeight="28.0" fitWidth="17.0" layoutX="174.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@login.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="17.0" layoutX="174.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@password.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
