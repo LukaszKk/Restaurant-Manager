@@ -150,6 +150,7 @@ public class EditWorkersController extends Main
             }
 
             setInfo( "name", newUserName.getText() );
+            userNameDB = newUserName.getText();
         }
 
         if( !newPassword.getText().equals("") )
