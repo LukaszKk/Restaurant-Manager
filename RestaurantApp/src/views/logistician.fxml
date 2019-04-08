@@ -9,9 +9,9 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #05071F;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.LogisticianController">
    <children>
-      <AnchorPane prefHeight="403.0" prefWidth="42.0" style="-fx-background-color: #02030A;">
+      <AnchorPane prefHeight="400.0" prefWidth="45.0" style="-fx-background-color: #02030A;">
          <children>
-            <VBox layoutY="57.0" prefHeight="197.0" prefWidth="58.0">
+            <VBox layoutY="57.0" prefHeight="226.0" prefWidth="58.0">
                <children>
                   <Button fx:id="button1" mnemonicParsing="false" prefHeight="40.0" prefWidth="71.0">
                      <graphic>
