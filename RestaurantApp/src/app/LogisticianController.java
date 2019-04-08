@@ -32,7 +32,7 @@ public class LogisticianController {
         primaryStage.close();
     }
 
-    public void logoutAction(ActionEvent actionEvent) {
+    public void logoutAction() {
         loadView("login");
     }
 }
