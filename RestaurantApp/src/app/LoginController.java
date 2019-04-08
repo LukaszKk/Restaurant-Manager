@@ -116,8 +116,7 @@ public class LoginController extends Main {
                         break;
                     case "Waiter":
                         Main.loggedAs = "Waiter";
-                        //TODO... replace "/views/login.fxml"
-                        openViewName = "/views/login.fxml";
+                        openViewName = "/views/waiter.fxml";
                         break;
                     case "Manager":
                         Main.loggedAs = "Manager";
