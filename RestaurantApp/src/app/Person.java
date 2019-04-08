@@ -1,23 +1,19 @@
 package app;
 
-public class Person
-{
+public class Person {
     private String name;
     private String position;
 
-    Person(String name, String position)
-    {
+    Person(String name, String position) {
         this.name = name;
         this.position = position;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public String getPosition()
-    {
+    public String getPosition() {
         return position;
     }
 }
