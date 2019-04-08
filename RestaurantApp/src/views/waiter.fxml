@@ -40,7 +40,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button fx:id="button4" mnemonicParsing="false" prefHeight="40.0" prefWidth="63.0">
+                        <Button fx:id="button4" mnemonicParsing="false" onAction="#workersClicked" prefHeight="40.0" prefWidth="63.0">
                             <graphic>
                                 <ImageView fitHeight="80.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

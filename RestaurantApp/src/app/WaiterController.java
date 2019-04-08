@@ -21,6 +21,10 @@ public class WaiterController {
         loggedAs.setText(Main.loggedAs);
     }
 
+    public void workersClicked() {
+        loadView("workers");
+    }
+
     private void loadView(String view) {
         Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
         try {
