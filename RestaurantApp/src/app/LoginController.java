@@ -14,8 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class LoginController extends Main
-{
+public class LoginController extends Main {
     public AnchorPane anchorPane;
     public TextField loginField;
     public PasswordField passwordField;
@@ -27,8 +26,7 @@ public class LoginController extends Main
      * set fields initial property
      * disable focusing cursor on TextField
      */
-    public void initialize()
-    {
+    public void initialize() {
         loginField.setFocusTraversable(false);
         passwordField.setFocusTraversable(false);
     }
@@ -36,24 +34,22 @@ public class LoginController extends Main
     /**
      * checks if fields were filed correctly
      * else prints a message
+     *
      * @param field
      * @param password
      * @return
      */
-    static int checkFieldsFill( TextField field, TextField password )
-    {
+    static int checkFieldsFill(TextField field, TextField password) {
         int checked = 2;
-        if( field.getText().length() == 0 )
-        {
-            field.setPromptText( "User name must be filled!");
+        if (field.getText().length() == 0) {
+            field.setPromptText("User name must be filled!");
             field.setStyle("-fx-prompt-text-fill: #ff0000");
             password.clear();
             --checked;
         }
 
-        if( password.getText().length() == 0 )
-        {
-            password.setPromptText( "Password must be filled!");
+        if (password.getText().length() == 0) {
+            password.setPromptText("Password must be filled!");
             password.setStyle("-fx-prompt-text-fill: #ff0000");
             --checked;
         }
@@ -61,8 +57,7 @@ public class LoginController extends Main
         return checked;
     }
 
-    public void exitAction()
-    {
+    public void exitAction() {
         Stage registerStage = (Stage) anchorPane.getScene().getWindow();
         registerStage.close();
     }
@@ -73,24 +68,20 @@ public class LoginController extends Main
      * Open connection with databese
      * Give an error or if everything is alrigth check if given user exists in database
      */
-    public void signInButtonAction()
-    {
-        int checked = checkFieldsFill( loginField, passwordField );
-        if( checked != 2 )
+    public void signInButtonAction() {
+        int checked = checkFieldsFill(loginField, passwordField);
+        if (checked != 2)
             return;
 
         ConnectionClass connectionClass = new ConnectionClass();
         Connection connection = connectionClass.getConnection();
 
-        try
-        {
+        try {
             Statement statement = connection.createStatement();
             String sql = "SELECT name FROM users;";
             ResultSet resultSet = statement.executeQuery(sql);
-            while( resultSet.next() )
-            {
-                if( resultSet.getString(1).equals(loginField.getText()) )
-                {
+            while (resultSet.next()) {
+                if (resultSet.getString(1).equals(loginField.getText())) {
                     --checked;
                     break;
                 }
@@ -98,44 +89,39 @@ public class LoginController extends Main
 
             sql = "SELECT password FROM users;";
             resultSet = statement.executeQuery(sql);
-            while( resultSet.next() )
-            {
-                if( resultSet.getString(1).equals(passwordField.getText()) )
-                {
+            while (resultSet.next()) {
+                if (resultSet.getString(1).equals(passwordField.getText())) {
                     --checked;
                     sql = "SELECT position FROM users WHERE password = '" + passwordField.getText() + "';";
                     break;
                 }
             }
 
-            if( checked == 0 )
-            {
+            if (checked == 0) {
                 Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
                 resultSet = statement.executeQuery(sql);
                 resultSet.next();
                 sql = resultSet.getString(1);
 
                 String openViewName = null;
-                switch( sql )
-                {
+                switch (sql) {
                     case "Accountant":
                         Main.loggedAs = "Accountant";
                         //TODO... replace "/views/login.fxml"
-                            openViewName = "/views/login.fxml";
+                        openViewName = "/views/login.fxml";
                         break;
                     case "Logistician":
                         Main.loggedAs = "Logistician";
-                        //TODO... replace "/views/login.fxml"
-                            openViewName = "/views/login.fxml";
+                        openViewName = "/views/logistician.fxml";
                         break;
                     case "Waiter":
                         Main.loggedAs = "Waiter";
                         //TODO... replace "/views/login.fxml"
-                            openViewName = "/views/login.fxml";
+                        openViewName = "/views/login.fxml";
                         break;
                     case "Manager":
                         Main.loggedAs = "Manager";
-                            openViewName = "/views/manager.fxml";
+                        openViewName = "/views/manager.fxml";
                         break;
                     default:
                         openViewName = "/views/login.fxml";
@@ -143,20 +129,16 @@ public class LoginController extends Main
                 }
 
                 Parent fxmlLoader = FXMLLoader.load(getClass().getResource(openViewName));
-                Main.loadStage( fxmlLoader );
+                Main.loadStage(fxmlLoader);
 
                 primaryStage.close();
-            }
-            else
-            {
+            } else {
                 passwordField.clear();
-                passwordField.setPromptText( "Invalid user name or password!");
+                passwordField.setPromptText("Invalid user name or password!");
                 passwordField.setStyle("-fx-prompt-text-fill: #ff0000");
             }
             connection.close();
-        }
-        catch( SQLException | IOException e )
-        {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
