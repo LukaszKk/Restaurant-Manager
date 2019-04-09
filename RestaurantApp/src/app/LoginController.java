@@ -87,7 +87,7 @@ public class LoginController extends Main {
                 }
             }
 
-            sql = "SELECT password FROM users;";
+            sql = "SELECT password FROM users WHERE name='"+ loginField.getText() +"';";
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 if (resultSet.getString(1).equals(passwordField.getText())) {
