@@ -1,20 +1,21 @@
 package app;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ManagerController {
-    public AnchorPane anchorPane;
-    public Hyperlink logOutButton;
-    public Button workersButton;
-    public Label loggedAs;
+public class WaiterController {
+
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private Label loggedAs;
 
     public void initialize() {
         loggedAs.setText(Main.loggedAs);
@@ -24,15 +25,6 @@ public class ManagerController {
         loadView("workers");
     }
 
-    public void logOutClicked() {
-        loadView("login");
-    }
-
-    /**
-     * load given view
-     *
-     * @param view
-     */
     private void loadView(String view) {
         Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
         try {
@@ -43,4 +35,9 @@ public class ManagerController {
         }
         primaryStage.close();
     }
+
+    public void logoutAction() {
+        loadView("login");
+    }
 }
+

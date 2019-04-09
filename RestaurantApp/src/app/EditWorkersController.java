@@ -13,8 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class EditWorkersController extends Main
-{
+public class EditWorkersController extends Main {
     public AnchorPane anchorPane;
     public Button submitButton;
     public TextField newUserName;
@@ -32,86 +31,77 @@ public class EditWorkersController extends Main
      * set initial properties
      * disable focusing cursor on TextField
      */
-    public void initialize()
-    {
-        loggedAs.setText( "Logged as: " + Main.loggedAs );
+    public void initialize() {
+        loggedAs.setText("Logged as: " + Main.loggedAs);
 
-        userName.setText( userNameDB );
+        userName.setText(userNameDB);
 
         choiceBox.getItems().add("Logistician");
         choiceBox.getItems().add("Waiter");
         choiceBox.getItems().add("Accountant");
         choiceBox.getItems().add("Manager");
-        choiceBox.setValue( fillLabels() );
+        choiceBox.setValue(fillLabels());
 
         newUserName.setFocusTraversable(false);
         newPassword.setFocusTraversable(false);
     }
 
-    public void backAction()
-    {
-        loadView( "workers" );
+    public void backAction() {
+        loadView("workers");
     }
 
-    public void logOutAction()
-    {
-        loadView( "login" );
+    public void logOutAction() {
+        loadView("login");
     }
 
     /**
      * load given view
+     *
      * @param view
      */
-    private void loadView( String view )
-    {
+    private void loadView(String view) {
         Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
         Parent fxmlLoader = null;
-        try
-        {
+        try {
             fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
-        }
-        catch( IOException e )
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        Main.loadStage( fxmlLoader );
+        Main.loadStage(fxmlLoader);
         primaryStage.close();
     }
 
     /**
      * fills labels with information from DB
      * returns position
+     *
      * @return
      */
-    private String fillLabels()
-    {
-        password.setText( getInfo("password") );
+    private String fillLabels() {
+        password.setText(getInfo("password"));
         String result = getInfo("position");
-        position.setText( result );
+        position.setText(result);
 
         return result;
     }
 
     /**
      * get given attribute from DB
+     *
      * @param attribute
      * @return
      */
-    private String getInfo( String attribute )
-    {
+    private String getInfo(String attribute) {
         Connection connection = new ConnectionClass().getConnection();
         String result = null;
-        try
-        {
+        try {
             Statement statement = connection.createStatement();
             String sql = "SELECT " + attribute + " FROM users WHERE name='" + userNameDB + "';";
             ResultSet resultSet = statement.executeQuery(sql);
-            if( resultSet.next() )
+            if (resultSet.next())
                 result = resultSet.getString(1);
             connection.close();
-        }
-        catch( SQLException e )
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;
@@ -120,22 +110,17 @@ public class EditWorkersController extends Main
     /**
      * save new data if were given
      */
-    public void submitAction()
-    {
-        if( !newUserName.getText().equals("") )
-        {
+    public void submitAction() {
+        if (!newUserName.getText().equals("")) {
             Connection connection = new ConnectionClass().getConnection();
             Statement statement;
-            try
-            {
+            try {
                 statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT name FROM users;");
-                while( resultSet.next() )
-                {
-                    if( resultSet.getString(1).equals(newUserName.getText()) )
-                    {
+                while (resultSet.next()) {
+                    if (resultSet.getString(1).equals(newUserName.getText())) {
                         newUserName.clear();
-                        newUserName.setPromptText( "User name is already taken!");
+                        newUserName.setPromptText("User name is already taken!");
                         newUserName.setStyle("-fx-prompt-text-fill: #ff0000");
                         newPassword.clear();
                         connection.close();
@@ -143,42 +128,37 @@ public class EditWorkersController extends Main
                     }
                 }
                 connection.close();
-            }
-            catch( SQLException e )
-            {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            setInfo( "name", newUserName.getText() );
+            setInfo("name", newUserName.getText());
+            userNameDB = newUserName.getText();
         }
 
-        if( !newPassword.getText().equals("") )
-        {
-            setInfo( "password", newPassword.getText() );
+        if (!newPassword.getText().equals("")) {
+            setInfo("password", newPassword.getText());
         }
 
-        setInfo( "position", choiceBox.getValue() );
+        setInfo("position", choiceBox.getValue());
 
         backAction();
     }
 
     /**
      * set given attribute with value
+     *
      * @param attribute
      * @param value
      */
-    private void setInfo( String attribute, String value )
-    {
+    private void setInfo(String attribute, String value) {
         Connection connection = new ConnectionClass().getConnection();
-        try
-        {
+        try {
             Statement statement = connection.createStatement();
             String sql = "UPDATE users SET " + attribute + "=" + "'" + value + "'" + " WHERE name='" + userNameDB + "';";
             statement.executeUpdate(sql);
             connection.close();
-        }
-        catch( SQLException e )
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

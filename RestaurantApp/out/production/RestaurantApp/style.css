@@ -1,37 +1,3 @@
-/*
- * The MIT License (MIT)
- *
- * Copyright (c) 2015 - AGIX | Innovative Engineering
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT 	SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- */
-
-/*
- *   This is a Material Design CSS for JavaFX
- */
-
-/*******************************************************************************
- *                                                                             *
- * Root					 				                       				   *
- *                                                                             *
- ******************************************************************************/
 .root {
     /* Swatch Colors - Blue*/
     -swatch-100: #BBDEFB;
@@ -87,7 +53,7 @@
 .card {
     -fx-background-color: rgb(255.0, 255.0, 255.0);
     -fx-background-radius: 4.0;
-    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,
     1.5);
     -fx-padding: 16 16 16 16;
 }
@@ -129,9 +95,63 @@
  *                                                                             *
  ******************************************************************************/
 .button-raised {
-    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,
     1);
     -fx-background-color: rgb(250, 250, 250);
+}
+
+#l1 {
+    -fx-font-size: 20;
+    /*-fx-text-fill: WHITE;*/
+}
+
+#loggedAs {
+    -fx-font-size: 20;
+    /*-fx-text-fill: WHITE;*/
+}
+
+#button1 {
+    -fx-background-color: #02030A;
+}
+
+#button2 {
+    -fx-background-color: #02030A;
+}
+
+#button3 {
+    -fx-background-color: #02030A;
+}
+
+#button4 {
+    -fx-background-color: #02030A;
+}
+
+#button5 {
+    -fx-background-color: #02030A;
+}
+
+#button1:hover {
+    -fx-background-color: #9C9AA6;
+}
+
+#button2:hover {
+    -fx-background-color: #9C9AA6;
+}
+
+#button3:hover {
+    -fx-background-color: #9C9AA6;
+}
+
+#button4:hover {
+    -fx-background-color: #9C9AA6;
+}
+
+#button5:hover {
+    -fx-background-color: #9C9AA6;
+}
+
+.button:hover {
+    -fx-background-color: #9C9AA6;
 }
 
 .button-flat {
@@ -169,8 +189,7 @@
     -fx-text-fill: -fx-text-button-colored;
 }
 
-.toggle-button:armed, .toggle-button:selected, .button:armed, .button:default:armed
-{
+.toggle-button:armed, .toggle-button:selected, .button:armed, .button:default:armed {
     -fx-background-color: -swatch-grey;
     -fx-text-fill: -fx-text-button-colored;
 }
@@ -206,16 +225,16 @@
     -fx-border-color: -swatch-500;
 }
 
-.combo-box-base>.label, .choice-box>.label {
+.combo-box-base > .label, .choice-box > .label {
     -fx-padding: 0.7em 0.7em 0.7em 0em;
 }
 
-.combo-box-base>.arrow-button, .choice-box>.open-button {
+.combo-box-base > .arrow-button, .choice-box > .open-button {
     -fx-padding: 1.2em 0.7em 1.2em 0.5em;
     -fx-background-radius: 0.0 2.0 2.0 0.0;
 }
 
-.combo-box-base>.arrow-button>.arrow, .choice-box>.open-button>.arrow {
+.combo-box-base > .arrow-button > .arrow, .choice-box > .open-button > .arrow {
     -fx-background-color: -swatch-grey;
 }
 
@@ -241,8 +260,8 @@
     -fx-fill: -fx-text-base-color;
 }
 
-.check-box>.box, .check-box>.box.unfocused, .check-box:disabled>.box,
-.check-box:indeterminate>.box {
+.check-box > .box, .check-box > .box.unfocused, .check-box:disabled > .box,
+.check-box:indeterminate > .box {
     -fx-border-radius: 4.0;
     -fx-border-color: -swatch-grey;
     -fx-border-width: 2;
@@ -251,21 +270,21 @@
     -fx-padding: 1;
 }
 
-.check-box:selected>.box {
+.check-box:selected > .box {
     -fx-border-color: -swatch-500;
     -fx-background-color: -swatch-500;
 }
 
-.check-box:focused>.box {
-    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,
+.check-box:focused > .box {
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,
     0);
 }
 
-.check-box:selected>.box>.mark {
+.check-box:selected > .box > .mark {
     -fx-background-color: white;
 }
 
-.check-box:indeterminate>.box>.mark {
+.check-box:indeterminate > .box > .mark {
     -fx-background-color: -swatch-grey;
     -fx-padding: 0.45em;
 }
@@ -276,7 +295,7 @@
  *                                                                             *
  ******************************************************************************/
 .context-menu {
-    -fx-background-color: rgba(255.0, 255.0, 255.0, 0.95);
+    -fx-background-color: rgb(255.0, 255.0, 255.0, 0.95);
     -fx-background-radius: 2.0;
 }
 
@@ -288,16 +307,14 @@
     -fx-text-fill: -swatch-500;
 }
 
-.radio-menu-item:checked>.left-container>.radio, .check-menu-item:checked>.left-container>.check
-{
+.radio-menu-item:checked > .left-container > .radio, .check-menu-item:checked > .left-container > .check {
     -fx-background-color: -swatch-dark-grey;
     -fx-padding: 0.68em 0.5em 0.0em 0.0em;
-    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0, 0.2), 0.0, 0.0, 0.0,
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.2), 0.0, 0.0, 0.0,
     1.0);
 }
 
-.radio-menu-item>.left-container>.radio, .check-menu-item>.left-container>.check
-{
+.radio-menu-item > .left-container > .radio, .check-menu-item > .left-container > .check {
     -fx-background-color: transparent;
     -fx-padding: 0.68em 0.68em 0.0em 0.0em;
 }
@@ -325,7 +342,7 @@
 
 .title-bar .icon {
     -fx-alignment: center-left;
-    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0, 0.2), 0.0, 0.0, 0.0,
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.2), 0.0, 0.0, 0.0,
     1.0);
 }
 
@@ -355,26 +372,24 @@
     -fx-background-color: -swatch-500;
 }
 
-.date-picker-popup>.month-year-pane {
+.date-picker-popup > .month-year-pane {
     -fx-background-color: -swatch-500;
 }
 
-.date-picker-popup>*>.spinner>.button>.left-arrow, .date-picker-popup>*>.spinner>.button>.right-arrow
-{
+.date-picker-popup > * > .spinner > .button > .left-arrow, .date-picker-popup > * > .spinner > .button > .right-arrow {
     -fx-background-color: white;
 }
 
-.date-picker-popup>*>.spinner {
+.date-picker-popup > * > .spinner {
     -fx-border-width: 0;
 }
 
-.date-picker-popup>*>.spinner>.label {
+.date-picker-popup > * > .spinner > .label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
-.date-picker-popup>*>.day-name-cell, .date-picker-popup>*>.week-number-cell
-{
+.date-picker-popup > * > .day-name-cell, .date-picker-popup > * > .week-number-cell {
     -fx-font-weight: normal;
     -fx-text-fill: -swatch-dark-grey;
     -fx-font-size: 1em;
@@ -430,7 +445,7 @@
     -fx-opacity: -fx-disabled-opacity;
 }
 
-.label:show-mnemonics>.mnemonic-underline {
+.label:show-mnemonics > .mnemonic-underline {
     -fx-stroke: -fx-text-base-color;
 }
 
@@ -458,13 +473,13 @@
  * ProgressBar                                                                 *
  *                                                                             *
  ******************************************************************************/
-.progress-bar>.track {
+.progress-bar > .track {
     -fx-background-color: derive(-swatch-grey, 50.0%);
     -fx-background-radius: 2.0;
     -fx-padding: 0.0;
 }
 
-.progress-bar>.bar {
+.progress-bar > .bar {
     -fx-background-color: -swatch-500;
     -fx-background-radius: 2.0;
     -fx-background-insets: 0.0;
@@ -472,7 +487,7 @@
     -fx-effect: null;
 }
 
-.progress-bar:indeterminate>.bar {
+.progress-bar:indeterminate > .bar {
     -fx-background-color: derive(-swatch-500, 50.0%);
     -fx-background-radius: 2.0;
     -fx-background-insets: 0.0;
@@ -485,20 +500,20 @@
  * ProgressIndicator                                                           *
  *                                                                             *
  ******************************************************************************/
-.progress-indicator>.spinner {
+.progress-indicator > .spinner {
     -fx-border-width: 0;
 }
 
-.progress-indicator>.determinate-indicator>.indicator {
-    -fx-background-color: rgba(255.0, 255.0, 255.0, 0.5);
+.progress-indicator > .determinate-indicator > .indicator {
+    -fx-background-color: rgb(255.0, 255.0, 255.0, 0.5);
     -fx-padding: 0.0;
 }
 
-.progress-indicator>.determinate-indicator>.progress {
+.progress-indicator > .determinate-indicator > .progress {
     -fx-background-color: -swatch-500;
 }
 
-.progress-indicator>.determinate-indicator>.percentage {
+.progress-indicator > .determinate-indicator > .percentage {
     -fx-fill: -fx-text-base-color;
     -fx-translate-y: 0em;
     -fx-padding: 0.0;
@@ -518,8 +533,8 @@
     -fx-fill: -fx-text-base-color;
 }
 
-.radio-button>.radio, .radio-button>.radio.unfocused, .radio-button:disabled>.radio,
-.radio-button:selected>.radio {
+.radio-button > .radio, .radio-button > .radio.unfocused, .radio-button:disabled > .radio,
+.radio-button:selected > .radio {
     -fx-border-radius: 100.0;
     -fx-border-color: -swatch-grey;
     -fx-border-width: 2;
@@ -528,15 +543,15 @@
     -fx-padding: 3 3 3 3;
 }
 
-.radio-button:focused>.radio {
+.radio-button:focused > .radio {
     -fx-background-color: -swatch-100;
 }
 
-.radio-button:focused:armed>.radio {
+.radio-button:focused:armed > .radio {
     -fx-background-color: -swatch-100;
 }
 
-.radio-button:selected>.radio>.dot {
+.radio-button:selected > .radio > .dot {
     -fx-background-color: -swatch-500;
     -fx-background-insets: 0;
 }
@@ -555,30 +570,27 @@
  * Scroll Bar			                                                       *
  *                                                                             *
  ******************************************************************************/
-.scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background
-{
+.scroll-bar:vertical > .track-background, .scroll-bar:horizontal > .track-background {
     -fx-background-color: -swatch-light-grey;
     -fx-background-insets: 0.0;
 }
 
-.scroll-bar:vertical>.thumb, .scroll-bar:horizontal>.thumb {
+.scroll-bar:vertical > .thumb, .scroll-bar:horizontal > .thumb {
     -fx-background-color: -swatch-grey;
     -fx-background-insets: 0.0;
     -fx-background-radius: 4.0;
 }
 
-.scroll-bar>.increment-button, .scroll-bar>.decrement-button,
-.scroll-bar:hover>.increment-button, .scroll-bar:hover>.decrement-button
-{
+.scroll-bar > .increment-button, .scroll-bar > .decrement-button,
+.scroll-bar:hover > .increment-button, .scroll-bar:hover > .decrement-button {
     -fx-background-color: transparent;
 }
 
-.scroll-bar>.increment-button>.increment-arrow, .scroll-bar>.decrement-button>.decrement-arrow
-{
+.scroll-bar > .increment-button > .increment-arrow, .scroll-bar > .decrement-button > .decrement-arrow {
     -fx-background-color: -swatch-dark-grey;
 }
 
-.scroll-bar>.track-background {
+.scroll-bar > .track-background {
     -fx-background-color: transparent;
 }
 
@@ -595,12 +607,12 @@
     -fx-padding: 0 10 0 10;
 }
 
-.slider>.track {
+.slider > .track {
     -fx-background-color: -swatch-grey;
     -fx-background-insets: 1.5;
 }
 
-.slider>.thumb {
+.slider > .thumb {
     -fx-background-color: -swatch-500;
 }
 
@@ -633,8 +645,7 @@
     -fx-fill: swatch-500;
 }
 
-.spinner .increment-arrow-button .increment-arrow, .spinner .decrement-arrow-button .decrement-arrow
-{
+.spinner .increment-arrow-button .increment-arrow, .spinner .decrement-arrow-button .decrement-arrow {
     -fx-background-color: -swatch-grey;
 }
 
@@ -660,27 +671,24 @@
    to the edge of the tableview, or up to the 'column control' button. */
 .table-view .filler, .tree-table-view .filler, .table-view .column-header,
 .tree-table-view .column-header {
-    -fx-size: 65px;
+    -fx-size: 65;
     -fx-border-style: null;
     -fx-border-color: -swatch-grey;
     -fx-border-width: 0 0 2 0;
     -fx-background-color: transparent;
 }
 
-.table-view .show-hide-columns-button, .tree-table-view .show-hide-columns-button
-{
+.table-view .show-hide-columns-button, .tree-table-view .show-hide-columns-button {
     -fx-background-color: transparent;
 }
 
 .table-view .column-header .label, .table-view .filler .label,
 .table-view .column-drag-header .label, .tree-table-view .column-header .label,
-.tree-table-view .filler .label, .tree-table-view .column-drag-header .label
-{
+.tree-table-view .filler .label, .tree-table-view .column-drag-header .label {
     -fx-alignment: CENTER_LEFT;
 }
 
-.table-view .column-header-background, .tree-table-view .column-header-background
-{
+.table-view .column-header-background, .tree-table-view .column-header-background {
     -fx-background-color: transparent;
 }
 
@@ -712,7 +720,7 @@
     -fx-highlight-fill: rgb(94.0, 203.0, 234.0);
 }
 
-.text-area .text, .text-field>*>.text {
+.text-area .text, .text-field > * > .text {
     -fx-effect: null;
     -fx-fill: -dark;
 }
@@ -727,7 +735,7 @@
     -fx-background-color: transparent;
 }
 
-.text-area:focused  .content {
+.text-area:focused .content {
     -fx-background-color: transparent;
 }
 
@@ -767,8 +775,7 @@
     -fx-background-radius: 0;
 }
 
-.tool-bar .button:pressed, .tool-bar .toggle-button:pressed, .tool-bar .toggle-button:selected
-{
+.tool-bar .button:pressed, .tool-bar .toggle-button:pressed, .tool-bar .toggle-button:selected {
     -fx-background-color: -swatch-grey;
 }
 
