@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.YearMonth;
 import java.util.ArrayList;
 
 public class WorkersController
@@ -140,7 +141,10 @@ public class WorkersController
 
         schedule.setOnAction( actionEvent1 ->
         {
-                /*loadView( "scheduleWorkers" );*/
+            //loadView( "scheduleWorkers" );
+            Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
+            Main.loadStage( new FullCalendarView(YearMonth.now()).getView() );
+            primaryStage.close();
         });
 
         contextMenu.getItems().addAll( edit, schedule );

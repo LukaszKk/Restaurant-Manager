@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="394.0" prefWidth="599.0" style="-fx-background-color: #3562e8;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ManagerController">
+<AnchorPane fx:id="anchorPane" prefHeight="394.0" prefWidth="599.0" style="-fx-background-color: #151928;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ManagerController">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="140.0" style="-fx-background-color: #dee9fc;">
+      <AnchorPane prefHeight="400.0" prefWidth="140.0" style="-fx-background-color: #151928;">
          <children>
-            <Hyperlink fx:id="logOutButton" layoutX="46.0" layoutY="14.0" onAction="#logOutClicked" text="Log out" textFill="#141313" />
+            <Hyperlink fx:id="logOutButton" layoutX="46.0" layoutY="14.0" onAction="#logOutClicked" text="Log out" textFill="#646464" />
             <Button fx:id="workersButton" layoutX="13.0" layoutY="80.0" mnemonicParsing="false" onAction="#workersClicked" prefHeight="25.0" prefWidth="115.0" text="Workers" />
             <Label fx:id="loggedAs" layoutX="13.0" layoutY="369.0" text="Logged in" />
          </children>
