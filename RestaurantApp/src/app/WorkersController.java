@@ -119,6 +119,11 @@ public class WorkersController
         search.setOnKeyReleased(keyEvent ->
             flPerson.setPredicate(p -> p.getPosition().toLowerCase().contains(search.getText().toLowerCase().trim()) )
         );
+
+        if( !loggedAs.getText().contains("Manager"))
+        {
+            createAccountButton.setVisible(false);
+        }
     }
 
     /**
@@ -147,7 +152,12 @@ public class WorkersController
             primaryStage.close();
         });
 
-        contextMenu.getItems().addAll( edit, schedule );
+        if( loggedAs.getText().contains("Manager"))
+        {
+            contextMenu.getItems().addAll( edit );
+        }
+        contextMenu.getItems().addAll( schedule );
+
 
         contextMenu.show( anchorPane, X, Y );
         anchorPane.setOnMousePressed( mouseEvent -> contextMenu.hide() );
