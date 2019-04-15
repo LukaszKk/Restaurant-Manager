@@ -107,8 +107,7 @@ public class LoginController extends Main {
                 switch (sql) {
                     case "Accountant":
                         Main.loggedAs = "Accountant";
-                        //TODO... replace "/views/login.fxml"
-                        openViewName = "/views/login.fxml";
+                        openViewName = "/views/accountant.fxml";
                         break;
                     case "Logistician":
                         Main.loggedAs = "Logistician";
