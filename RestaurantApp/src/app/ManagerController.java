@@ -20,9 +20,7 @@ public class ManagerController {
         loggedAs.setText(Main.loggedAs);
     }
 
-    public void workersClicked() {
-        loadView("workers");
-    }
+    public void workersClicked() { loadView("workers"); }
 
     public void logOutClicked() {
         loadView("login");

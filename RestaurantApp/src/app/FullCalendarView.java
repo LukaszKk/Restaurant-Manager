@@ -1,13 +1,17 @@
 package app;
 
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -66,11 +70,13 @@ public class FullCalendarView
 
         // Create calendarTitle and buttons to change current month
         calendarTitle = new Text();
+        Button returnBtn = new Button("Return");
+        returnBtn.setOnAction(e -> returnToMainPanel());
         Button previousMonth = new Button("<<");
         previousMonth.setOnAction(e -> previousMonth());
         Button nextMonth = new Button(">>");
         nextMonth.setOnAction(e -> nextMonth());
-        HBox titleBar = new HBox(previousMonth, calendarTitle, nextMonth);
+        HBox titleBar = new HBox(returnBtn, previousMonth, calendarTitle, nextMonth);
         titleBar.setAlignment(Pos.BASELINE_CENTER);
 
         // Populate calendar with the appropriate day numbers
@@ -124,6 +130,10 @@ public class FullCalendarView
         populateCalendar(currentYearMonth);
     }
 
+    private void returnToMainPanel() {
+        loadView("manager");
+    }
+
     VBox getView() {
         return view;
     }
@@ -134,5 +144,16 @@ public class FullCalendarView
 
     public void setAllCalendarDays(ArrayList<AnchorPaneNode> allCalendarDays) {
         this.allCalendarDays = allCalendarDays;
+    }
+
+    private void loadView(String viewname) {
+        Stage primaryStage = (Stage)view.getScene().getWindow();
+        try {
+            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + viewname + ".fxml"));
+            Main.loadStage(fxmlLoader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        primaryStage.close();
     }
 }
