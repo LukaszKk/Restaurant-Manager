@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_restaurantapp" default="compile.module.restaurantapp">
+  <dirname property="module.restaurantapp.basedir" file="${ant.file.module_restaurantapp}"/>
+  
+  <property name="module.jdk.home.restaurantapp" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.restaurantapp" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.restaurantapp" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.restaurantapp" value="-encoding UTF-8 -source 9 -target 9 ${compiler.args}"/>
+  
+  <property name="restaurantapp.output.dir" value="${module.restaurantapp.basedir}/out/production/RestaurantApp"/>
+  <property name="restaurantapp.testoutput.dir" value="${module.restaurantapp.basedir}/out/test/RestaurantApp"/>
+  
+  <path id="restaurantapp.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="restaurantapp.module.production.classpath">
+    <path refid="${module.jdk.classpath.restaurantapp}"/>
+    <path refid="library.javafx11.classpath"/>
+    <path refid="library.mysql-connector-java-8.0.15.classpath"/>
+  </path>
+  
+  <path id="restaurantapp.runtime.production.module.classpath">
+    <pathelement location="${restaurantapp.output.dir}"/>
+    <path refid="library.javafx11.classpath"/>
+    <path refid="library.mysql-connector-java-8.0.15.classpath"/>
+  </path>
+  
+  <path id="restaurantapp.module.classpath">
+    <path refid="${module.jdk.classpath.restaurantapp}"/>
+    <pathelement location="${restaurantapp.output.dir}"/>
+    <path refid="library.javafx11.classpath"/>
+    <path refid="library.mysql-connector-java-8.0.15.classpath"/>
+  </path>
+  
+  <path id="restaurantapp.runtime.module.classpath">
+    <pathelement location="${restaurantapp.testoutput.dir}"/>
+    <pathelement location="${restaurantapp.output.dir}"/>
+    <path refid="library.javafx11.classpath"/>
+    <path refid="library.mysql-connector-java-8.0.15.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.restaurantapp">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.restaurantapp">
+    <patternset refid="excluded.from.module.restaurantapp"/>
+  </patternset>
+  
+  <path id="restaurantapp.module.sourcepath">
+    <dirset dir="${module.restaurantapp.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.restaurantapp" depends="compile.module.restaurantapp.production,compile.module.restaurantapp.tests" description="Compile module RestaurantApp"/>
+  
+  <target name="compile.module.restaurantapp.production" depends="register.custom.compilers" description="Compile module RestaurantApp; production classes">
+    <mkdir dir="${restaurantapp.output.dir}"/>
+    <javac2 destdir="${restaurantapp.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.restaurantapp}/javac">
+      <compilerarg line="${compiler.args.restaurantapp}"/>
+      <bootclasspath refid="restaurantapp.module.bootclasspath"/>
+      <classpath refid="restaurantapp.module.production.classpath"/>
+      <src refid="restaurantapp.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.restaurantapp"/>
+    </javac2>
+    
+    <copy todir="${restaurantapp.output.dir}">
+      <fileset dir="${module.restaurantapp.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.restaurantapp.tests" depends="register.custom.compilers,compile.module.restaurantapp.production" description="compile module RestaurantApp; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.restaurantapp" description="cleanup module">
+    <delete dir="${restaurantapp.output.dir}"/>
+    <delete dir="${restaurantapp.testoutput.dir}"/>
+  </target>
+</project>
