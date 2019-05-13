@@ -1,5 +1,7 @@
-package app;
+package app.account;
 
+import app.account.LoginController;
+import app.main.Main;
 import connectivity.ConnectionClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class RegisterController extends Main {
+public class RegisterController extends Main
+{
     public AnchorPane anchorPane;
     public Button signUpButton;
     public TextField userName;

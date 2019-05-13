@@ -1,5 +1,6 @@
-package app;
+package app.manager;
 
+import app.main.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;

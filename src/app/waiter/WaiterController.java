@@ -1,6 +1,6 @@
-package app;
+package app.waiter;
 
-import javafx.event.ActionEvent;
+import app.main.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

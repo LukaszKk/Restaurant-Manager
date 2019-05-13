@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151928;"
             stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="app.RegisterController">
+            fx:controller="app.account.RegisterController">
     <children>
         <Label fx:id="labelRegister" layoutX="212.0" layoutY="28.0" prefHeight="44.0" prefWidth="156.0" text="Register">
             <font>

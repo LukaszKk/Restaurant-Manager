@@ -1,5 +1,6 @@
-package app;
+package app.manager;
 
+import app.main.Main;
 import connectivity.ConnectionClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class EditWorkersController extends Main {
+public class EditWorkersController extends Main
+{
     public AnchorPane anchorPane;
     public Button submitButton;
     public TextField newUserName;

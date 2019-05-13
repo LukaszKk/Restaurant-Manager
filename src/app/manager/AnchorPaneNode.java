@@ -1,4 +1,4 @@
-package app;
+package app.manager;
 
 
 import javafx.scene.Node;

@@ -1,5 +1,6 @@
-package app;
+package app.account;
 
+import app.main.Main;
 import connectivity.ConnectionClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class LoginController extends Main {
+public class LoginController extends Main
+{
     public AnchorPane anchorPane;
     public TextField loginField;
     public PasswordField passwordField;
