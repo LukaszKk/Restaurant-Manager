@@ -1,6 +1,7 @@
 package app.manager;
 
 import app.main.Main;
+import app.main.StageProperty;
 import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,37 +47,17 @@ public class WorkersController
 
     public void backAction()
     {
-        loadView("manager");
+        StageProperty.loadView("manager", anchorPane, this.getClass());
     }
 
     public void logOutAction()
     {
-        loadView("login");
+        StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
     public void createAccountAction()
     {
-        loadView("register");
-    }
-
-    /**
-     * load given view
-     * @param view
-     */
-    private void loadView(String view)
-    {
-        try
-        {
-            Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
-            Main.loadStage(fxmlLoader);
-            primaryStage.close();
-        }
-        catch( IOException e )
-        {
-            e.printStackTrace();
-        }
+        StageProperty.loadView("register", anchorPane, this.getClass());
     }
 
     /**
@@ -142,14 +123,14 @@ public class WorkersController
         edit.setOnAction( actionEvent1 ->
         {
             EditWorkersController.userNameDB = name.get(index);
-            loadView( "editWorkers" );
+            StageProperty.loadView( "editWorkers", anchorPane, this.getClass() );
         });
 
         schedule.setOnAction( actionEvent1 ->
         {
             //loadView( "scheduleWorkers" );
             Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-            Main.loadStage( new FullCalendarView(YearMonth.now()).getView() );
+            StageProperty.loadStage( new FullCalendarView(YearMonth.now()).getView() );
             primaryStage.close();
         });
 

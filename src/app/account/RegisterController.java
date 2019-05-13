@@ -1,15 +1,12 @@
 package app.account;
 
-import app.account.LoginController;
 import app.main.Main;
+import app.main.StageProperty;
 import connectivity.ConnectionClass;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,27 +55,11 @@ public class RegisterController extends Main
      * Open login form
      */
     public void backAction() {
-        loadView("workers");
+        StageProperty.loadView("workers", anchorPane, this.getClass());
     }
 
     public void loadLogin() {
-        loadView("login");
-    }
-
-    /**
-     * load given view
-     *
-     * @param view
-     */
-    private void loadView(String view) {
-        Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-        try {
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
-            Main.loadStage(fxmlLoader);
-            primaryStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
     /**

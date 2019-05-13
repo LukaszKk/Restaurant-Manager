@@ -1,14 +1,10 @@
 package app.accountant;
 
-        import app.main.Main;
-        import javafx.fxml.FXML;
-        import javafx.fxml.FXMLLoader;
-        import javafx.scene.Parent;
-        import javafx.scene.control.Label;
-        import javafx.scene.layout.AnchorPane;
-        import javafx.stage.Stage;
-
-        import java.io.IOException;
+import app.main.Main;
+import app.main.StageProperty;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 public class AccountantController {
 
@@ -21,23 +17,14 @@ public class AccountantController {
         loggedAs.setText(Main.loggedAs);
     }
 
-    public void workersClicked() {
-        loadView("workers");
+    public void logOutClicked()
+    {
+        StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
-    private void loadView(String view) {
-        Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-        try {
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
-            Main.loadStage(fxmlLoader);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        primaryStage.close();
-    }
 
     public void logoutAction() {
-        loadView("login");
+        StageProperty.loadView("login", anchorPane, this.getClass());
     }
 }
 

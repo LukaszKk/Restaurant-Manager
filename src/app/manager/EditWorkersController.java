@@ -1,14 +1,11 @@
 package app.manager;
 
 import app.main.Main;
+import app.main.StageProperty;
 import connectivity.ConnectionClass;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,28 +46,11 @@ public class EditWorkersController extends Main
     }
 
     public void backAction() {
-        loadView("workers");
+        StageProperty.loadView("workers", anchorPane, this.getClass());
     }
 
     public void logOutAction() {
-        loadView("login");
-    }
-
-    /**
-     * load given view
-     *
-     * @param view
-     */
-    private void loadView(String view) {
-        Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-        Parent fxmlLoader = null;
-        try {
-            fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Main.loadStage(fxmlLoader);
-        primaryStage.close();
+        StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
     /**

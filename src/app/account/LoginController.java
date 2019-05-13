@@ -1,6 +1,7 @@
 package app.account;
 
 import app.main.Main;
+import app.main.StageProperty;
 import connectivity.ConnectionClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -129,7 +130,7 @@ public class LoginController extends Main
                 }
 
                 Parent fxmlLoader = FXMLLoader.load(getClass().getResource(openViewName));
-                Main.loadStage(fxmlLoader);
+                StageProperty.loadStage(fxmlLoader);
 
                 primaryStage.close();
             } else {

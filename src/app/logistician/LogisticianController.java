@@ -1,38 +1,31 @@
 package app.logistician;
 
 import app.main.Main;
+import app.main.StageProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class LogisticianController {
+public class LogisticianController
+{
 
     @FXML
     private AnchorPane anchorPane;
     @FXML
     private Label loggedAs;
 
-    public void initialize() {
+    public void initialize()
+    {
         loggedAs.setText(Main.loggedAs);
     }
 
-    private void loadView(String view) {
-        Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-        try {
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
-            Main.loadStage(fxmlLoader);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        primaryStage.close();
+    public void logOutClicked()
+    {
+        StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
-    public void logoutAction() {
-        loadView("login");
+    public void logoutAction()
+    {
+        StageProperty.loadView("login", anchorPane, this.getClass());
     }
 }

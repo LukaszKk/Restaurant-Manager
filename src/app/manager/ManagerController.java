@@ -1,47 +1,32 @@
 package app.manager;
 
 import app.main.Main;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import app.main.StageProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class ManagerController {
+public class ManagerController
+{
     public AnchorPane anchorPane;
     public Hyperlink logOutButton;
-    public Button workersButton;
+    public Button button1;
     public Label loggedAs;
 
-    public void initialize() {
+    public void initialize()
+    {
         loggedAs.setText(Main.loggedAs);
+
     }
 
-    public void workersClicked() {
-        loadView("workers");
+    public void workersClicked()
+    {
+        StageProperty.loadView("workers", anchorPane, this.getClass());
     }
 
-    public void logOutClicked() {
-        loadView("login");
-    }
-
-    /**
-     * load given view
-     *
-     * @param view
-     */
-    private void loadView(String view) {
-        Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-        try {
-            Parent fxmlLoader = FXMLLoader.load(getClass().getResource("/views/" + view + ".fxml"));
-            Main.loadStage(fxmlLoader);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        primaryStage.close();
+    public void logOutClicked()
+    {
+        StageProperty.loadView("login", anchorPane, this.getClass());
     }
 }
