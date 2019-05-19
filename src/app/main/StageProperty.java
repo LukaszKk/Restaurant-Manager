@@ -20,8 +20,9 @@ public class StageProperty
     public static void loadStage( Parent fxmlLoader )
     {
         Stage stage = new Stage();
-        stage.setScene(new Scene(fxmlLoader));
-        stage.initStyle(StageStyle.UNDECORATED);
+        Scene scene = new Scene( fxmlLoader, 600, 400 );
+        stage.setScene(scene);
+        //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 

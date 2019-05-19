@@ -40,7 +40,7 @@ public class Main extends Application
         stage.setScene(scene);
         stage.setMinWidth(400);
         stage.setMinHeight(300);
-        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 

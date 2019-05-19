@@ -4,6 +4,7 @@ module RestaurantManager.app
     requires javafx.controls;
     requires java.sql;
     requires mysql.connector.java;
+    requires jfxtras.labs.samples;
 
     opens app.account;
     opens app.main;

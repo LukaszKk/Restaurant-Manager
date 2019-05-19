@@ -17,7 +17,6 @@ public class ManagerController
     public void initialize()
     {
         loggedAs.setText(Main.loggedAs);
-
     }
 
     public void workersClicked()

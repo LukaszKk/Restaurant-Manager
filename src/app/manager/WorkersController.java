@@ -6,8 +6,7 @@ import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,15 +15,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import jfxtras.labs.icalendaragenda.scene.control.agenda.ICalendarAgenda;
+import jfxtras.labs.icalendarfx.VCalendar;
 
-import java.io.IOException;
+import javax.security.auth.callback.Callback;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.YearMonth;
 import java.util.ArrayList;
+
 
 public class WorkersController
 {
@@ -67,7 +73,7 @@ public class WorkersController
     private void listWorkers()
     {
         TableColumn nameCol = new TableColumn("Name");
-        TableColumn positionCol = new TableColumn("Position");
+        TableColumn<Object, Object> positionCol = new TableColumn<>("Position");
 
         nameCol.setPrefWidth( tableView.getPrefWidth()/2 );
         nameCol.setCellValueFactory( new PropertyValueFactory<>("name") );
@@ -110,6 +116,7 @@ public class WorkersController
 
     /**
      * create context menu for one row
+     *
      * @param index
      * @param X
      * @param Y
@@ -128,10 +135,9 @@ public class WorkersController
 
         schedule.setOnAction( actionEvent1 ->
         {
-            //loadView( "scheduleWorkers" );
+            Calendar calendar = new Calendar();
             Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-            StageProperty.loadStage( new FullCalendarView(YearMonth.now()).getView() );
-            primaryStage.close();
+            calendar.loadCalendar( primaryStage );
         });
 
         if( loggedAs.getText().contains("Manager"))
@@ -148,6 +154,7 @@ public class WorkersController
 
     /**
      * get data form DB
+     *
      * @param attribute
      * @return
      */
