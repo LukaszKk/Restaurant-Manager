@@ -2,32 +2,21 @@ package app.manager;
 
 import app.main.Main;
 import app.main.StageProperty;
+import app.manager.calendar.FullCalendarView;
 import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import jfxtras.labs.icalendaragenda.scene.control.agenda.ICalendarAgenda;
-import jfxtras.labs.icalendarfx.VCalendar;
 
-import javax.security.auth.callback.Callback;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
@@ -41,8 +30,8 @@ public class WorkersController
     public Label loggedAs;
     public TableView tableView;
     public TextField search;
-    private ArrayList<String> name = getWorkersInfo( "name" );
-    private ArrayList<String> position = getWorkersInfo( "position" );
+    private ArrayList<String> name = getWorkersInfo("name");
+    private ArrayList<String> position = getWorkersInfo("position");
 
     public void initialize()
     {
@@ -75,21 +64,21 @@ public class WorkersController
         TableColumn nameCol = new TableColumn("Name");
         TableColumn<Object, Object> positionCol = new TableColumn<>("Position");
 
-        nameCol.setPrefWidth( tableView.getPrefWidth()/2 );
-        nameCol.setCellValueFactory( new PropertyValueFactory<>("name") );
+        nameCol.setPrefWidth(tableView.getPrefWidth() / 2);
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        positionCol.setPrefWidth( tableView.getPrefWidth()/2 );
-        positionCol.setCellValueFactory( new PropertyValueFactory<>("position") );
+        positionCol.setPrefWidth(tableView.getPrefWidth() / 2);
+        positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
 
-        tableView.getColumns().addAll( nameCol, positionCol );
+        tableView.getColumns().addAll(nameCol, positionCol);
 
         tableView.setRowFactory(tv ->
         {
             TableRow<Person> row = new TableRow<>();
             row.setOnMouseClicked(mouseEvent ->
             {
-                if( !row.isEmpty() && mouseEvent.getButton()== MouseButton.PRIMARY && mouseEvent.getClickCount() == 1)
-                        showContextMenu( row.getIndex(), mouseEvent.getScreenX(), mouseEvent.getScreenY() );
+                if( !row.isEmpty() && mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1 )
+                    showContextMenu(row.getIndex(), mouseEvent.getScreenX(), mouseEvent.getScreenY());
             });
             return row;
         });
@@ -98,17 +87,17 @@ public class WorkersController
 
         for( int i = 0; i < name.size(); i++ )
         {
-            data.add( new Person(name.get(i), position.get(i)) );
+            data.add(new Person(name.get(i), position.get(i)));
         }
 
         FilteredList<Person> flPerson = new FilteredList(data, p -> true);
         tableView.setItems(flPerson);
 
         search.setOnKeyReleased(keyEvent ->
-            flPerson.setPredicate(p -> p.getPosition().toLowerCase().contains(search.getText().toLowerCase().trim()) )
+                flPerson.setPredicate(p -> p.getPosition().toLowerCase().contains(search.getText().toLowerCase().trim()))
         );
 
-        if( !loggedAs.getText().contains("Manager"))
+        if( !loggedAs.getText().contains("Manager") )
         {
             createAccountButton.setVisible(false);
         }
@@ -127,29 +116,29 @@ public class WorkersController
         MenuItem edit = new MenuItem("Edit");
         MenuItem schedule = new MenuItem("Schedule");
 
-        edit.setOnAction( actionEvent1 ->
+        edit.setOnAction(actionEvent1 ->
         {
             EditWorkersController.userNameDB = name.get(index);
-            StageProperty.loadView( "editWorkers", anchorPane, this.getClass() );
+            StageProperty.loadView("editWorkers", anchorPane, this.getClass());
         });
 
-        schedule.setOnAction( actionEvent1 ->
+        schedule.setOnAction(actionEvent1 ->
         {
-            Calendar calendar = new Calendar();
             Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-            calendar.loadCalendar( primaryStage );
+            StageProperty.loadStage( new FullCalendarView(YearMonth.now()).getView() );
+            primaryStage.close();
         });
 
-        if( loggedAs.getText().contains("Manager"))
+        if( loggedAs.getText().contains("Manager") )
         {
-            contextMenu.getItems().addAll( edit );
+            contextMenu.getItems().addAll(edit);
         }
-        contextMenu.getItems().addAll( schedule );
+        contextMenu.getItems().addAll(schedule);
 
 
-        contextMenu.show( anchorPane, X, Y );
-        anchorPane.setOnMousePressed( mouseEvent -> contextMenu.hide() );
-        tableView.setOnMousePressed( mouseEvent -> contextMenu.hide() );
+        contextMenu.show(anchorPane, X, Y);
+        anchorPane.setOnMousePressed(mouseEvent -> contextMenu.hide());
+        tableView.setOnMousePressed(mouseEvent -> contextMenu.hide());
     }
 
     /**
@@ -168,10 +157,9 @@ public class WorkersController
             String sql = "SELECT " + attribute + " FROM users;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
-                result.add( resultSet.getString(1) );
+                result.add(resultSet.getString(1));
             connection.close();
-        }
-        catch( SQLException e )
+        } catch( SQLException e )
         {
             e.printStackTrace();
         }
