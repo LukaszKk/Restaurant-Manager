@@ -29,6 +29,8 @@ public class ConnectionClass {
             Statement statement = connection.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS users(name VARCHAR(100), password VARCHAR(100), position VARCHAR(100));";
             statement.execute(sql);
+            sql = "CREATE TABLE IF NOT EXISTS dishes(name VARCHAR(100), price VARCHAR(100), category VARCHAR(100));";
+            statement.execute(sql);
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();

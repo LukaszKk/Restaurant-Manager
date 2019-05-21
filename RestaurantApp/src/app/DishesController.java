@@ -24,7 +24,7 @@ import java.sql.Statement;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
-public class WorkersController
+public class DishesController
 {
     public AnchorPane anchorPane;
     public Hyperlink backButton;
@@ -45,10 +45,7 @@ public class WorkersController
 
     public void backAction()
     {
-        if(Main.loggedAs == "Manager")
             loadView("manager");
-        else
-            loadView("waiter");
     }
 
     public void logOutAction()
@@ -56,9 +53,9 @@ public class WorkersController
         loadView("login");
     }
 
-    public void createAccountAction()
+    public void addDishAction()
     {
-        loadView("register");
+        loadView("addDish");
     }
 
     /**
@@ -88,7 +85,7 @@ public class WorkersController
     private void listWorkers()
     {
         TableColumn nameCol = new TableColumn("Name");
-        TableColumn positionCol = new TableColumn("Position");
+        TableColumn positionCol = new TableColumn("Category");
 
         nameCol.setPrefWidth( tableView.getPrefWidth()/2 );
         nameCol.setCellValueFactory( new PropertyValueFactory<>("name") );
@@ -104,7 +101,7 @@ public class WorkersController
             row.setOnMouseClicked(mouseEvent ->
             {
                 if( !row.isEmpty() && mouseEvent.getButton()== MouseButton.PRIMARY && mouseEvent.getClickCount() == 1)
-                        showContextMenu( row.getIndex(), mouseEvent.getScreenX(), mouseEvent.getScreenY() );
+                    showContextMenu( row.getIndex(), mouseEvent.getScreenX(), mouseEvent.getScreenY() );
             });
             return row;
         });
@@ -120,7 +117,7 @@ public class WorkersController
         tableView.setItems(flPerson);
 
         search.setOnKeyReleased(keyEvent ->
-            flPerson.setPredicate(p -> p.getPosition().toLowerCase().contains(search.getText().toLowerCase().trim()) )
+                flPerson.setPredicate(p -> p.getPosition().toLowerCase().contains(search.getText().toLowerCase().trim()) )
         );
 
         if( !loggedAs.getText().contains("Manager"))
@@ -136,7 +133,7 @@ public class WorkersController
      * @param Y
      */
     private void showContextMenu( int index, double X, double Y )
-    {
+    {/*
         ContextMenu contextMenu = new ContextMenu();
         MenuItem edit = new MenuItem("Edit");
         MenuItem schedule = new MenuItem("Schedule");
@@ -165,6 +162,7 @@ public class WorkersController
         contextMenu.show( anchorPane, X, Y );
         anchorPane.setOnMousePressed( mouseEvent -> contextMenu.hide() );
         tableView.setOnMousePressed( mouseEvent -> contextMenu.hide() );
+        */
     }
 
     /**
@@ -179,7 +177,7 @@ public class WorkersController
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT " + attribute + " FROM users;";
+            String sql = "SELECT " + attribute + " FROM dishes;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
                 result.add( resultSet.getString(1) );

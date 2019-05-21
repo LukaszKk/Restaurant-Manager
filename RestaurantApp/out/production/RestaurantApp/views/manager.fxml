@@ -22,7 +22,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="button2" mnemonicParsing="false" prefHeight="39.0" prefWidth="65.0">
+            <Button fx:id="button2" mnemonicParsing="false" onAction="#dishesClicked" prefHeight="39.0" prefWidth="65.0">
                <graphic>
                   <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -31,7 +31,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="button3" mnemonicParsing="false" prefHeight="39.0" prefWidth="65.0">
+            <Button fx:id="button3" mnemonicParsing="false" onAction="#addDishClicked" prefHeight="39.0" prefWidth="65.0">
                <graphic>
                   <ImageView fitHeight="19.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>

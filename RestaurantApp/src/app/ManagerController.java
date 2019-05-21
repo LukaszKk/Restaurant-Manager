@@ -24,6 +24,14 @@ public class ManagerController {
         loadView("workers");
     }
 
+    public void addDishClicked() {
+        loadView("addDish");
+    }
+
+    public void dishesClicked() {
+        loadView("dishes");
+    }
+
     public void logOutClicked() {
         loadView("login");
     }
