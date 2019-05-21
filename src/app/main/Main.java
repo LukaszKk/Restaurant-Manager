@@ -37,8 +37,9 @@ public class Main extends Application
         Scene scene = new Scene(root);
         //scene.getStylesheets().add("style.css");
         stage.setScene(scene);
-        stage.setMinWidth(400);
-        stage.setMinHeight(300);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        stage.setResizable(false);
         //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }

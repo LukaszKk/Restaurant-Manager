@@ -22,6 +22,24 @@ public class StageProperty
         Stage stage = new Stage();
         Scene scene = new Scene( fxmlLoader, 600, 400 );
         stage.setScene(scene);
+        stage.setResizable(false);
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+    }
+
+    /**
+     * opens given form with given size
+
+     * @param fxmlLoader
+     * @param width
+     * @param height
+     */
+    public static void loadStage( Parent fxmlLoader, int width, int height )
+    {
+        Stage stage = new Stage();
+        Scene scene = new Scene( fxmlLoader, width, height );
+        stage.setScene(scene);
+        stage.setResizable(false);
         //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
@@ -43,5 +61,18 @@ public class StageProperty
             e.printStackTrace();
         }
         primaryStage.close();
+    }
+
+    public static void loadView( String view, Parent fxmlLoader, Class c )
+    {
+        ((Stage) fxmlLoader.getScene().getWindow()).close();
+        try
+        {
+            fxmlLoader = FXMLLoader.load(c.getResource("/views/" + view + ".fxml"));
+            loadStage(fxmlLoader);
+        } catch( IOException e )
+        {
+            e.printStackTrace();
+        }
     }
 }

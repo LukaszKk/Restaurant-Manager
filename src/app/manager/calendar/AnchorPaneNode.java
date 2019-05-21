@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class AnchorPaneNode extends AnchorPane
 {
     // Date associated with this pane
-    private LocalDate date;
+    public LocalDate date;
 
     /**
      * Create a anchor pane node. Date is not assigned in the constructor.
@@ -22,7 +22,6 @@ public class AnchorPaneNode extends AnchorPane
     {
         super(children);
         // Add action handler for mouse clicked
-        this.setOnMouseClicked(e -> System.out.println("This pane's date is: " + date));
     }
 
     public LocalDate getDate()

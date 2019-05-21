@@ -1,5 +1,6 @@
 package app.manager.calendar;
 
+import app.main.StageProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -7,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -41,6 +43,12 @@ public class FullCalendarView
                 ap.setPrefSize(200, 200);
                 calendar.add(ap, j, i);
                 allCalendarDays.add(ap);
+                ap.setOnMouseClicked( e ->
+                {
+                    System.out.println( "This pane's date is: " + ap.date );
+                    DayView dayView = new DayView( ap.date );
+                    dayView.draw();
+                });
             }
         }
         // Days of the week labels
@@ -49,12 +57,12 @@ public class FullCalendarView
                 new Text("Saturday") };
         GridPane dayLabels = new GridPane();
         dayLabels.setPrefWidth(600);
-        Integer col = 0;
+        int col = 0;
         for( Text txt : dayNames )
         {
             AnchorPane ap = new AnchorPane();
             ap.setPrefSize(200, 10);
-            ap.setBottomAnchor(txt, 5.0);
+            AnchorPane.setBottomAnchor(txt, 5.0);
             ap.getChildren().add(txt);
             dayLabels.add(ap, col++, 0);
         }
@@ -64,7 +72,14 @@ public class FullCalendarView
         previousMonth.setOnAction(e -> previousMonth());
         Button nextMonth = new Button(">>");
         nextMonth.setOnAction(e -> nextMonth());
-        HBox titleBar = new HBox(previousMonth, calendarTitle, nextMonth);
+        Button previousYear = new Button("<<");
+        previousYear.setOnAction(e -> previousYear());
+        Button nextYear = new Button(">>");
+        nextYear.setOnAction(e -> nextYear());
+        Button back = new Button("Back");
+        back.setOnAction(e -> StageProperty.loadView("workers", this.getView(), this.getClass()));
+        HBox titleBar = new HBox(previousYear, previousMonth, calendarTitle, nextMonth, nextYear, back);
+        titleBar.setSpacing(10);
         titleBar.setAlignment(Pos.BASELINE_CENTER);
         // Populate calendar with the appropriate day numbers
         populateCalendar(yearMonth);
@@ -95,8 +110,8 @@ public class FullCalendarView
             }
             Text txt = new Text(String.valueOf(calendarDate.getDayOfMonth()));
             ap.setDate(calendarDate);
-            ap.setTopAnchor(txt, 5.0);
-            ap.setLeftAnchor(txt, 5.0);
+            AnchorPane.setTopAnchor(txt, 5.0);
+            AnchorPane.setLeftAnchor(txt, 5.0);
             ap.getChildren().add(txt);
             calendarDate = calendarDate.plusDays(1);
         }
@@ -119,6 +134,24 @@ public class FullCalendarView
     private void nextMonth()
     {
         currentYearMonth = currentYearMonth.plusMonths(1);
+        populateCalendar(currentYearMonth);
+    }
+
+    /**
+     * Move the year back by one. Repopulate the calendar with the correct dates.
+     */
+    private void previousYear()
+    {
+        currentYearMonth = currentYearMonth.minusMonths(12);
+        populateCalendar(currentYearMonth);
+    }
+
+    /**
+     * Move the year forward by one. Repopulate the calendar with the correct dates.
+     */
+    private void nextYear()
+    {
+        currentYearMonth = currentYearMonth.plusMonths(12);
         populateCalendar(currentYearMonth);
     }
 
