@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151928;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.DishesController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151928;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.manager.DishesController">
     <children>
         <AnchorPane prefHeight="400.0" prefWidth="140.0" style="-fx-background-color: #151928;">
             <children>
                 <Hyperlink fx:id="backButton" layoutX="54.0" layoutY="14.0" onAction="#backAction" text="Back" textFill="#646464" />
-                <Button fx:id="addDishAction" layoutX="13.0" layoutY="80.0" mnemonicParsing="false" onAction="#addDishAction" prefHeight="25.0" prefWidth="115.0" text="Add Dish" />
+                <Button fx:id="createAccountButton" layoutX="13.0" layoutY="80.0" mnemonicParsing="false" onAction="#createDishAction" prefHeight="25.0" prefWidth="115.0" text="Create Dish" />
                 <Label fx:id="loggedAs" layoutX="14.0" layoutY="369.0" text="Logged in" />
-                <TextField fx:id="search" layoutX="13.0" layoutY="175.0" prefHeight="25.0" prefWidth="115.0" promptText="Search Category" />
+                <TextField fx:id="search" layoutX="13.0" layoutY="175.0" prefHeight="25.0" prefWidth="115.0" promptText="Search" />
             </children>
         </AnchorPane>
         <Hyperlink fx:id="logOutButton" layoutX="527.0" layoutY="14.0" onAction="#logOutAction" text="Log out" textFill="#646464" />
