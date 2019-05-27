@@ -32,8 +32,9 @@ public class DishesController
     public Label loggedAs;
     public TableView tableView;
     public TextField search;
-    private ArrayList<String> name = getWorkersInfo("name");
-    private ArrayList<String> position = getWorkersInfo("position");
+    private ArrayList<String> name = getWorkersInfo("nameDish");
+    private ArrayList<String> price = getWorkersInfo("price");
+    private ArrayList<String> category = getWorkersInfo("category");
 
     public void initialize()
     {
@@ -65,18 +66,22 @@ public class DishesController
     {
         TableColumn nameCol = new TableColumn("Name");
         TableColumn<Object, Object> positionCol = new TableColumn<>("Position");
+        TableColumn<Object, Object> priceCol = new TableColumn<>("Price");
 
-        nameCol.setPrefWidth(tableView.getPrefWidth() / 2);
+        nameCol.setPrefWidth(tableView.getPrefWidth() / 3);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        positionCol.setPrefWidth(tableView.getPrefWidth() / 2);
-        positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
+        positionCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        positionCol.setCellValueFactory(new PropertyValueFactory<>("category"));
 
-        tableView.getColumns().addAll(nameCol, positionCol);
+        priceCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        tableView.getColumns().addAll(nameCol, positionCol,priceCol);
 
         tableView.setRowFactory(tv ->
         {
-            TableRow<Person> row = new TableRow<>();
+            TableRow<Dish> row = new TableRow<>();
             row.setOnMouseClicked(mouseEvent ->
             {
                 if( !row.isEmpty() && mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1 )
@@ -85,18 +90,18 @@ public class DishesController
             return row;
         });
 
-        ObservableList<Person> data = FXCollections.observableArrayList();
+        ObservableList<Dish> data = FXCollections.observableArrayList();
 
         for( int i = 0; i < name.size(); i++ )
         {
-            data.add(new Person(name.get(i), position.get(i)));
+            data.add(new Dish(name.get(i), price.get(i), category.get(i)));
         }
 
-        FilteredList<Person> flPerson = new FilteredList(data, p -> true);
-        tableView.setItems(flPerson);
+        FilteredList<Dish> flDish = new FilteredList(data, p -> true);
+        tableView.setItems(flDish);
 
         search.setOnKeyReleased(keyEvent ->
-                flPerson.setPredicate(p -> p.getPosition().toLowerCase().contains(search.getText().toLowerCase().trim()))
+                flDish.setPredicate(p -> p.getCategory().toLowerCase().contains(search.getText().toLowerCase().trim()))
         );
 
         if( !loggedAs.getText().contains("Manager") )
