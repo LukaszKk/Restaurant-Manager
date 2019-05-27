@@ -121,7 +121,6 @@ public class DishesController
     {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem edit = new MenuItem("Edit");
-        MenuItem schedule = new MenuItem("Schedule");
 
         edit.setOnAction(actionEvent1 ->
         {
@@ -129,19 +128,7 @@ public class DishesController
             StageProperty.loadView("editDish", anchorPane, this.getClass());
         });
 
-        schedule.setOnAction(actionEvent1 ->
-        {
-            Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-            StageProperty.loadStage( new FullCalendarView(YearMonth.now()).getView() );
-            primaryStage.close();
-        });
-
-        if( loggedAs.getText().contains("Manager") )
-        {
-            contextMenu.getItems().addAll(edit);
-        }
-        contextMenu.getItems().addAll(schedule);
-
+        contextMenu.getItems().addAll(edit);
 
         contextMenu.show(anchorPane, X, Y);
         anchorPane.setOnMousePressed(mouseEvent -> contextMenu.hide());
