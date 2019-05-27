@@ -61,6 +61,5 @@
             </Button>
          </children>
       </VBox>
-      <Hyperlink fx:id="logOutButton" layoutX="527.0" layoutY="24.0" onAction="#logOutClicked" text="Log out" textFill="#646464" />
     </children>
 </AnchorPane>

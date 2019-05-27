@@ -32,7 +32,7 @@
         <Button fx:id="signUpButton" layoutX="219.0" layoutY="290.0" mnemonicParsing="false" onAction="#signUpAction" text="Add" />
         <Hyperlink fx:id="back" layoutX="147.0" layoutY="20.0" onAction="#backAction" textFill="#646464" />
         <Hyperlink fx:id="exit" layoutX="545.0" layoutY="14.0" onAction="#exitAction" textFill="#646464" />
-        <Label fx:id="loggedAs" layoutX="458.0" layoutY="18.0" />
+        <Label fx:id="loggedAs" layoutX="458.0" layoutY="18.0" style="visibility:hidden"/>
       <AnchorPane prefHeight="400.0" prefWidth="45.0" style="-fx-background-color: #02030A;">
          <children>
             <VBox layoutY="57.0" prefHeight="247.0" prefWidth="45.0">

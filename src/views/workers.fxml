@@ -16,7 +16,7 @@
           <Hyperlink fx:id="backButton" layoutX="198.0" layoutY="27.0" onAction="#backAction" textFill="#646464" />
           <Button fx:id="createAccountButton" layoutX="88.0" layoutY="53.0" mnemonicParsing="false" onAction="#createAccountAction" prefHeight="25.0" prefWidth="115.0" text="Create Account" />
           <TextField fx:id="search" layoutX="88.0" layoutY="120.0" prefHeight="25.0" prefWidth="115.0" promptText="Search position" />
-          <Label fx:id="loggedAs" layoutX="69.0" layoutY="361.0" prefHeight="29.0" prefWidth="130.0" />
+          <Label fx:id="loggedAs" layoutX="69.0" layoutY="361.0" prefHeight="29.0" prefWidth="130.0" style="visibility:hidden"/>
       <AnchorPane prefHeight="400.0" prefWidth="45.0" style="-fx-background-color: #02030A;">
          <children>
             <VBox layoutY="57.0" prefHeight="247.0" prefWidth="45.0">
