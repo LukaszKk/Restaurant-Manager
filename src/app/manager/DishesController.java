@@ -65,7 +65,7 @@ public class DishesController
     private void listWorkers()
     {
         TableColumn nameCol = new TableColumn("Name");
-        TableColumn<Object, Object> positionCol = new TableColumn<>("Position");
+        TableColumn<Object, Object> positionCol = new TableColumn<>("Category");
         TableColumn<Object, Object> priceCol = new TableColumn<>("Price");
 
         nameCol.setPrefWidth(tableView.getPrefWidth() / 3);

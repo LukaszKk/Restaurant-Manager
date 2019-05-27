@@ -16,8 +16,8 @@ public class NewDish extends Main
 {
     public AnchorPane anchorPane;
     public Button signUpButton;
-    public TextField userName;
-    public TextField password;
+    public TextField dishName;
+    public TextField price;
     public ChoiceBox<String> choiceBox;
     public Hyperlink back;
     public Hyperlink exit;
@@ -72,27 +72,27 @@ public class NewDish extends Main
      * Trigger backAction() to close registration form and open login form
      */
     public void signUpAction() {
-        int checked = LoginController.checkFieldsFill(userName, password);
-        if (checked != 2)
-            return;
+        //int checked = LoginController.checkFieldsFill(userName, password);
+        //if (checked != 2)
+        //    return;
 
         Connection connection = new ConnectionClass().getConnection();
 
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT name FROM users;";
+            String sql = "SELECT nameDish FROM dishes;";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                if (resultSet.getString(1).equals(userName.getText())) {
-                    userName.clear();
-                    userName.setPromptText("User name is already taken!");
-                    userName.setStyle("-fx-prompt-text-fill: #ff0000");
-                    password.clear();
+                if (resultSet.getString(1).equals(dishName.getText())) {
+                    dishName.clear();
+                    dishName.setPromptText("Dish name is already taken!");
+                    dishName.setStyle("-fx-prompt-text-fill: #ff0000");
+                    //password.clear();
                     connection.close();
                     return;
                 }
             }
-            sql = "INSERT INTO dishes VALUES('" + userName.getText() + "', '" + password.getText() + "', '" + choiceBox.getValue() + "');";
+            sql = "INSERT INTO dishes VALUES('" + dishName.getText() + "', '" + price.getText() + "', '" + choiceBox.getValue() + "');";
             statement.executeUpdate(sql);
             connection.close();
             if (!Main.isFirstTimeRun)
