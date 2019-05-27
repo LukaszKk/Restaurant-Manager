@@ -28,7 +28,7 @@
         <ChoiceBox fx:id="choiceBox" layoutX="212.0" layoutY="217.0" prefWidth="150.0" />
         <Button fx:id="signUpButton" layoutX="212.0" layoutY="294.0" mnemonicParsing="false" onAction="#signUpAction" text="Sign Up" />
         <Hyperlink fx:id="back" layoutX="14.0" layoutY="14.0" onAction="#backAction" text="Back" textFill="#646464" />
-        <Hyperlink fx:id="exit" layoutX="545.0" layoutY="14.0" onAction="#exitAction" text="Exit" textFill="#646464" />
+        <Hyperlink fx:id="exit" layoutX="536.0" layoutY="14.0" onAction="#exitAction" text="Exit" textFill="#646464" />
         <Label fx:id="loggedAs" layoutX="433.0" layoutY="18.0" prefHeight="29.0" prefWidth="81.0" style="visibility:hidden" />
     </children>
 </AnchorPane>
