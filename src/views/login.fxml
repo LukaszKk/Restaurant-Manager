@@ -22,6 +22,7 @@
                 <Font size="13.0" />
             </font>
         </TextField>
+<<<<<<< HEAD
         <PasswordField fx:id="passwordField" layoutX="210.0" layoutY="200.0" prefHeight="29.0" prefWidth="181.0" promptText=" Password">
             <font>
                 <Font size="13.0" />
@@ -32,6 +33,18 @@
                 <Font size="13.0" />
             </font>
         </Button>
+=======
+        <Button fx:id="signInButton" layoutX="262.0" layoutY="280.0" mnemonicParsing="false" onAction="#signInButtonAction" prefHeight="25.0" prefWidth="77.0" text="Sign in">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </Button>
+        <PasswordField fx:id="passwordField" layoutX="210.0" layoutY="200.0" prefHeight="29.0" prefWidth="181.0" promptText=" Password">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </PasswordField>
+>>>>>>> master
         <Hyperlink fx:id="exitButton" layoutX="533.0" layoutY="14.0" onAction="#exitAction" text="Exit" textFill="#646464" />
         <ImageView fitHeight="28.0" fitWidth="17.0" layoutX="174.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
             <image>

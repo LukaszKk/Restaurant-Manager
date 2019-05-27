@@ -11,5 +11,8 @@ module RestaurantManager.app
     opens app.logistician;
     opens app.manager;
     opens app.waiter;
+<<<<<<< HEAD
     opens app.manager.calendar;
+=======
+>>>>>>> master
 }

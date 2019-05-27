@@ -1,16 +1,24 @@
 package app.manager.calendar;
 
 import app.main.StageProperty;
+<<<<<<< HEAD
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
+=======
+import javafx.scene.Group;
+>>>>>>> master
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
+<<<<<<< HEAD
 import javafx.stage.Stage;
 
 import java.io.IOException;
+=======
+
+>>>>>>> master
 import java.time.LocalDate;
 
 public class DayView
@@ -22,9 +30,20 @@ public class DayView
     {
         this.date = date;
         anchorPane = new AnchorPane();
+<<<<<<< HEAD
         StageProperty.loadStage(anchorPane, 800, 625);
         Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
         primaryStage.setTitle(date.toString());
+=======
+        /*Button close = new Button("Close");
+        close.setOnAction( e ->
+        {
+            Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
+            primaryStage.close();
+        });
+        anchorPane.getChildren().add( close );*/
+        StageProperty.loadStage(anchorPane, 800, 625);
+>>>>>>> master
     }
 
     public void draw()
@@ -40,6 +59,7 @@ public class DayView
         }
         anchorPane.getChildren().add(group);
 
+<<<<<<< HEAD
         Button add = new Button("+");
         add.setPrefSize(25, 25);
         add.setLayoutX(760);
@@ -61,5 +81,9 @@ public class DayView
         }
         StageProperty.loadStage(fxmlLoader, 400, 300);
         EventController.parentPane = anchorPane;
+=======
+        Button add = new Button("Add event");
+        anchorPane.getChildren().add( add );
+>>>>>>> master
     }
 }
