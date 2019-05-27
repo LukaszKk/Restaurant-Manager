@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class NewDish extends Main
+public class NewDishController extends Main
 {
     public AnchorPane anchorPane;
     public Button signUpButton;
