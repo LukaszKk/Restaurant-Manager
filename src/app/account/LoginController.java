@@ -30,8 +30,8 @@ public class LoginController extends Main
      * disable focusing cursor on TextField
      */
     public void initialize() {
-        loginField.setFocusTraversable(false);
-        passwordField.setFocusTraversable(false);
+        //loginField.setFocusTraversable(false);
+        //passwordField.setFocusTraversable(false);
     }
 
     /**
