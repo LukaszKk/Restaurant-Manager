@@ -44,6 +44,15 @@ public class FullCalendarView
                 ap.setPrefSize(200,200);
                 calendar.add(ap,j,i);
                 allCalendarDays.add(ap);
+<<<<<<< Updated upstream:RestaurantApp/src/app/FullCalendarView.java
+=======
+                ap.setOnMouseClicked( e ->
+                {
+                    //System.out.println( "This pane's date is: " + ap.date );
+                    DayView dayView = new DayView( ap.date );
+                    dayView.draw();
+                });
+>>>>>>> Stashed changes:src/app/manager/calendar/FullCalendarView.java
             }
         }
 
