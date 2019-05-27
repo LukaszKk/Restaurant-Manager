@@ -35,7 +35,7 @@ public class WorkersController
 
     public void initialize()
     {
-        loggedAs.setText("Logged as: " + Main.loggedAs);
+        loggedAs.setText(Main.loggedAs);
         tableView.setEditable(true);
         listWorkers();
     }
@@ -165,5 +165,20 @@ public class WorkersController
         }
 
         return result;
+    }
+
+    public void workersClicked()
+    {
+        StageProperty.loadView("workers", anchorPane, this.getClass());
+    }
+
+    public void logOutClicked()
+    {
+        StageProperty.loadView("login", anchorPane, this.getClass());
+    }
+
+    public void dishesClicked()
+    {
+        StageProperty.loadView("dishes", anchorPane, this.getClass());
     }
 }

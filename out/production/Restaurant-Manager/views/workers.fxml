@@ -5,31 +5,70 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151928;"
-            stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="app.manager.WorkersController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151928;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.manager.WorkersController">
     <children>
-        <AnchorPane prefHeight="400.0" prefWidth="140.0" style="-fx-background-color: #151928;">
-            <children>
-                <Hyperlink fx:id="backButton" layoutX="54.0" layoutY="14.0" onAction="#backAction" text="Back"
-                           textFill="#646464"/>
-                <Button fx:id="createAccountButton" layoutX="13.0" layoutY="80.0" mnemonicParsing="false"
-                        onAction="#createAccountAction" prefHeight="25.0" prefWidth="115.0" text="Create Account"/>
-                <Label fx:id="loggedAs" layoutX="14.0" layoutY="369.0" text="Logged in"/>
-                <TextField fx:id="search" layoutX="13.0" layoutY="175.0" prefHeight="25.0" prefWidth="115.0"
-                           promptText="Search position"/>
-            </children>
-        </AnchorPane>
-        <Hyperlink fx:id="logOutButton" layoutX="527.0" layoutY="14.0" onAction="#logOutAction" text="Log out"
-                   textFill="#646464"/>
-        <Label layoutX="149.0" layoutY="17.0" text="You are on Workers site!">
-            <font>
-                <Font size="14.0"/>
-            </font>
-        </Label>
-        <TableView fx:id="tableView" layoutX="140.0" layoutY="60.0" prefHeight="340.0" prefWidth="460.0"/>
+        <TableView fx:id="tableView" layoutX="265.0" prefHeight="400.0" prefWidth="335.0" />
+          <Hyperlink fx:id="backButton" layoutX="198.0" layoutY="27.0" onAction="#backAction" textFill="#646464" />
+          <Button fx:id="createAccountButton" layoutX="88.0" layoutY="53.0" mnemonicParsing="false" onAction="#createAccountAction" prefHeight="25.0" prefWidth="115.0" text="Create Account" />
+          <TextField fx:id="search" layoutX="88.0" layoutY="120.0" prefHeight="25.0" prefWidth="115.0" promptText="Search position" />
+          <Label fx:id="loggedAs" layoutX="62.0" layoutY="361.0" prefHeight="29.0" prefWidth="115.0" />
+      <AnchorPane prefHeight="400.0" prefWidth="45.0" style="-fx-background-color: #02030A;">
+         <children>
+            <VBox layoutY="57.0" prefHeight="247.0" prefWidth="45.0">
+               <children>
+                  <Button fx:id="button1" mnemonicParsing="false" onAction="#backAction" prefHeight="40.0" prefWidth="46.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button2" mnemonicParsing="false" prefHeight="39.0" prefWidth="65.0">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/cart-outline.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button3" mnemonicParsing="false" onAction="#dishesClicked" prefHeight="39.0" prefWidth="65.0">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/chef-hat.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button4" mnemonicParsing="false" onAction="#workersClicked" prefHeight="40.0" prefWidth="63.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/account-group.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button5" mnemonicParsing="false" onAction="#logOutClicked" prefHeight="39.0" prefWidth="68.0">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/logout-variant.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
