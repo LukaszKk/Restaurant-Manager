@@ -125,8 +125,8 @@ public class DishesController
 
         edit.setOnAction(actionEvent1 ->
         {
-            EditWorkersController.userNameDB = name.get(index);
-            StageProperty.loadView("editWorkers", anchorPane, this.getClass());
+            EditDishController.dishNameDB = name.get(index);
+            StageProperty.loadView("editDish", anchorPane, this.getClass());
         });
 
         schedule.setOnAction(actionEvent1 ->
