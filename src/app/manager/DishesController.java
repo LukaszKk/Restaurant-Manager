@@ -38,7 +38,7 @@ public class DishesController
 
     public void initialize()
     {
-        loggedAs.setText("Logged as: " + Main.loggedAs);
+        loggedAs.setText(Main.loggedAs);
         tableView.setEditable(true);
         listWorkers();
     }
