@@ -15,6 +15,7 @@ public class EditDishController extends Main
 {
     public AnchorPane anchorPane;
     public Button submitButton;
+    public Button deleteButton;
     public TextField newDishName;
     public TextField newPrice;
     public ChoiceBox<String> choiceBox;
@@ -123,6 +124,25 @@ public class EditDishController extends Main
         }
 
         setInfo("category", choiceBox.getValue());
+
+        backAction();
+    }
+
+    /**
+     * delete data
+     */
+    public void deleteAction() {
+
+        Connection connection = new ConnectionClass().getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            //DELETE FROM dishes WHERE condition;
+            String sql = "DELETE FROM dishes WHERE nameDish='" + dishNameDB + "';";
+            statement.executeUpdate(sql);
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         backAction();
     }
