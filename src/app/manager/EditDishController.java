@@ -19,7 +19,6 @@ public class EditDishController extends Main
     public TextField newDishName;
     public TextField newPrice;
     public ChoiceBox<String> choiceBox;
-    public Hyperlink back;
     public Hyperlink logOut;
     public Label loggedAs;
     static String dishNameDB;
@@ -32,11 +31,10 @@ public class EditDishController extends Main
      * disable focusing cursor on TextField
      */
     public void initialize() {
-        loggedAs.setText("Logged as: " + Main.loggedAs);
+        loggedAs.setText(Main.loggedAs);
 
         dishName.setText(dishNameDB);
 
-        back.setVisible(true);
         loggedAs.setVisible(true);
         choiceBox.getItems().add("Soup");
         choiceBox.getItems().add("Meat");

@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -13,42 +12,41 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151928;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.manager.EditDishController">
     <children>
-        <Label fx:id="labelRegister" layoutX="150.0" layoutY="27.0" prefHeight="44.0" prefWidth="156.0" text="Edit">
+        <Label fx:id="labelRegister" layoutX="144.0" layoutY="28.0" prefHeight="44.0" prefWidth="156.0" text="Edit">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <TextField fx:id="newDishName" layoutX="203.0" layoutY="110.0" prefHeight="30.0" prefWidth="182.0" promptText="New Dish Name">
+        <TextField fx:id="newDishName" layoutX="143.0" layoutY="110.0" prefHeight="30.0" prefWidth="182.0" promptText="New Dish Name">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-        <TextField fx:id="newPrice" layoutX="203.0" layoutY="167.0" prefHeight="30.0" prefWidth="182.0" promptText="New Price">
+        <TextField fx:id="newPrice" layoutX="143.0" layoutY="177.0" prefHeight="30.0" prefWidth="182.0" promptText="New Price">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-        <ChoiceBox fx:id="choiceBox" layoutX="203.0" layoutY="224.0" prefWidth="150.0" />
-        <Button fx:id="submitButton" layoutX="212.0" layoutY="291.0" mnemonicParsing="false" onAction="#submitAction" text="Submit" />
-        <Button fx:id="deleteButton" layoutX="306.0" layoutY="291.0" mnemonicParsing="false" onAction="#deleteAction" text="Delete" />
-        <Hyperlink fx:id="logOut" layoutX="537.0" layoutY="14.0" onAction="#logOutAction" text="Log out" textFill="#646464" />
+        <ChoiceBox fx:id="choiceBox" layoutX="142.0" layoutY="234.0" prefWidth="150.0" />
+        <Button fx:id="submitButton" layoutX="168.0" layoutY="298.0" mnemonicParsing="false" onAction="#submitAction" text="Submit" />
+        <Button fx:id="deleteButton" layoutX="295.0" layoutY="298.0" mnemonicParsing="false" onAction="#deleteAction" text="Delete" />
         <Label fx:id="loggedAs" layoutX="189.0" layoutY="358.0" style="visibility:hidden" />
-        <Label fx:id="dishName" layoutX="430.0" layoutY="118.0" prefHeight="20.0" prefWidth="156.0" text="Dish Name">
+        <Label fx:id="dishName" layoutX="401.0" layoutY="118.0" prefHeight="20.0" prefWidth="156.0" text="Dish Name">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="price" layoutX="436.0" layoutY="175.0" prefHeight="20.0" prefWidth="150.0" text="Price">
+        <Label fx:id="price" layoutX="404.0" layoutY="185.0" prefHeight="20.0" prefWidth="150.0" text="Price">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label fx:id="category" layoutX="430.0" layoutY="235.0" prefHeight="20.0" prefWidth="156.0" text="Category">
+        <Label fx:id="category" layoutX="401.0" layoutY="245.0" prefHeight="20.0" prefWidth="156.0" text="Category">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-      <AnchorPane layoutY="5.0" prefHeight="400.0" prefWidth="45.0" style="-fx-background-color: #02030A;">
+      <AnchorPane prefHeight="403.0" prefWidth="45.0" style="-fx-background-color: #02030A;">
          <children>
             <VBox layoutY="57.0" prefHeight="247.0" prefWidth="45.0">
                <children>
