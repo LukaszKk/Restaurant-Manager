@@ -33,7 +33,7 @@ public class RegisterController extends Main
             back.setVisible(true);
             exit.setText("Log out");
             loggedAs.setVisible(true);
-            loggedAs.setText("Logged as: " + Main.loggedAs);
+            loggedAs.setText(Main.loggedAs);
             choiceBox.getItems().add("Logistician");
             choiceBox.getItems().add("Waiter");
             choiceBox.getItems().add("Accountant");
