@@ -164,4 +164,19 @@ public class EditDishController extends Main
             e.printStackTrace();
         }
     }
+
+    public void workersClicked()
+    {
+        StageProperty.loadView("workers", anchorPane, this.getClass());
+    }
+
+    public void logOutClicked()
+    {
+        StageProperty.loadView("login", anchorPane, this.getClass());
+    }
+
+    public void dishesClicked()
+    {
+        StageProperty.loadView("dishes", anchorPane, this.getClass());
+    }
 }

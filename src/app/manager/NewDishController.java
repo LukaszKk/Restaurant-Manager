@@ -30,9 +30,9 @@ public class NewDishController extends Main
      */
     public void initialize() {
         back.setVisible(true);
-        exit.setText("Log out");
+        exit.setText("");
         loggedAs.setVisible(true);
-        loggedAs.setText("Logged as: " + Main.loggedAs);
+        loggedAs.setText(Main.loggedAs);
         choiceBox.getItems().add("Soup");
         choiceBox.getItems().add("Meat");
         choiceBox.getItems().add("Dessert");
@@ -104,5 +104,20 @@ public class NewDishController extends Main
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void workersClicked()
+    {
+        StageProperty.loadView("workers", anchorPane, this.getClass());
+    }
+
+    public void logOutClicked()
+    {
+        StageProperty.loadView("login", anchorPane, this.getClass());
+    }
+
+    public void dishesClicked()
+    {
+        StageProperty.loadView("dishes", anchorPane, this.getClass());
     }
 }

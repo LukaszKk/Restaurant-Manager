@@ -5,30 +5,85 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151928;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.account.NewDishController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151928;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.account.NewDishController">
     <children>
-        <Label fx:id="labelRegister" layoutX="212.0" layoutY="28.0" prefHeight="44.0" prefWidth="156.0" text="Add Dish">
+        <Label fx:id="labelRegister" layoutX="164.0" layoutY="24.0" prefHeight="44.0" prefWidth="156.0" text="Add Dish">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <TextField fx:id="dishName" layoutX="212.0" layoutY="106.0" prefHeight="30.0" prefWidth="182.0" promptText="Name">
+        <TextField fx:id="dishName" layoutX="166.0" layoutY="102.0" prefHeight="30.0" prefWidth="182.0" promptText="Name">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-        <TextField fx:id="price" layoutX="212.0" layoutY="164.0" prefHeight="30.0" prefWidth="182.0" promptText="Price">
+        <TextField fx:id="price" layoutX="166.0" layoutY="164.0" prefHeight="30.0" prefWidth="182.0" promptText="Price">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-        <ChoiceBox fx:id="choiceBox" layoutX="212.0" layoutY="217.0" prefWidth="150.0" />
-        <Button fx:id="signUpButton" layoutX="212.0" layoutY="294.0" mnemonicParsing="false" onAction="#signUpAction" text="Add" />
-        <Hyperlink fx:id="back" layoutX="14.0" layoutY="14.0" onAction="#backAction" text="Back" textFill="#646464" />
-        <Hyperlink fx:id="exit" layoutX="545.0" layoutY="14.0" onAction="#exitAction" text="Exit" textFill="#646464" />
-        <Label fx:id="loggedAs" layoutX="458.0" layoutY="18.0" text="Logged in" />
+        <ChoiceBox fx:id="choiceBox" layoutX="166.0" layoutY="216.0" prefWidth="150.0" />
+        <Button fx:id="signUpButton" layoutX="219.0" layoutY="290.0" mnemonicParsing="false" onAction="#signUpAction" text="Add" />
+        <Hyperlink fx:id="back" layoutX="147.0" layoutY="20.0" onAction="#backAction" textFill="#646464" />
+        <Hyperlink fx:id="exit" layoutX="545.0" layoutY="14.0" onAction="#exitAction" textFill="#646464" />
+        <Label fx:id="loggedAs" layoutX="458.0" layoutY="18.0" />
+      <AnchorPane prefHeight="400.0" prefWidth="45.0" style="-fx-background-color: #02030A;">
+         <children>
+            <VBox layoutY="57.0" prefHeight="247.0" prefWidth="45.0">
+               <children>
+                  <Button fx:id="button1" mnemonicParsing="false" onAction="#backAction" prefHeight="40.0" prefWidth="46.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button2" mnemonicParsing="false" prefHeight="39.0" prefWidth="65.0">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/cart-outline.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button3" mnemonicParsing="false" onAction="#dishesClicked" prefHeight="39.0" prefWidth="65.0">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/chef-hat.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button4" mnemonicParsing="false" onAction="#workersClicked" prefHeight="40.0" prefWidth="63.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/account-group.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button5" mnemonicParsing="false" onAction="#logOutClicked" prefHeight="39.0" prefWidth="68.0">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/logout-variant.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children></AnchorPane>
     </children>
 </AnchorPane>
