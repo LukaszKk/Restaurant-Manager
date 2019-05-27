@@ -15,12 +15,12 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <TextField fx:id="userName" layoutX="212.0" layoutY="106.0" prefHeight="30.0" prefWidth="182.0" promptText="Name">
+        <TextField fx:id="dishName" layoutX="212.0" layoutY="106.0" prefHeight="30.0" prefWidth="182.0" promptText="Name">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-        <TextField fx:id="password" layoutX="212.0" layoutY="164.0" prefHeight="30.0" prefWidth="182.0" promptText="Price">
+        <TextField fx:id="price" layoutX="212.0" layoutY="164.0" prefHeight="30.0" prefWidth="182.0" promptText="Price">
             <font>
                 <Font size="14.0" />
             </font>
