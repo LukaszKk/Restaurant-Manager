@@ -28,4 +28,9 @@ public class LogisticianController
     {
         StageProperty.loadView("login", anchorPane, this.getClass());
     }
+
+    public void dishesClicked()
+    {
+        StageProperty.loadView("dishes", anchorPane, this.getClass());
+    }
 }
