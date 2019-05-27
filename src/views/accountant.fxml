@@ -64,6 +64,5 @@
             </children>
         </AnchorPane>
         <Label id="l1" fx:id="loggedAs" layoutX="90.0" layoutY="14.0" prefHeight="32.0" prefWidth="195.0" text="Logistician" />
-      <Hyperlink fx:id="logOutButton" layoutX="528.0" layoutY="16.0" onAction="#logOutClicked" text="Log out" textFill="#646464" />
     </children>
 </AnchorPane>
