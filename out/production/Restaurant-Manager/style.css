@@ -130,6 +130,10 @@
     -fx-background-color: #02030A;
 }
 
+#button6 {
+    -fx-background-color: #02030A;
+}
+
 #button1:hover {
     -fx-background-color: #9C9AA6;
 }
@@ -147,6 +151,10 @@
 }
 
 #button5:hover {
+    -fx-background-color: #9C9AA6;
+}
+
+#button6:hover {
     -fx-background-color: #9C9AA6;
 }
 
