@@ -1,5 +1,6 @@
 package app.manager.calendar;
 
+import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -10,6 +11,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EventController
@@ -22,8 +27,10 @@ public class EventController
     public Label end;
     public ChoiceBox<String> choiceBoxS;
     public ChoiceBox<String> choiceBoxE;
-    public static AnchorPane parentPane;
-    public TextField textField;
+    private AnchorPane parentPane;
+    private String worker;
+    private LocalDate date;
+    private AnchorPaneNode parentNode;
 
     public void initialize()
     {
@@ -35,6 +42,8 @@ public class EventController
                 "19.30", "20.00", "20.30", "21.00", "21.30", "22.00", "22.30", "23.00", "23.30"));
         choiceBoxS.getItems().addAll( hours );
         choiceBoxE.getItems().addAll( hours );
+        worker = "";
+        date = null;
     }
 
     public void applyAction()
@@ -44,20 +53,25 @@ public class EventController
         primaryStage.close();
     }
 
+    /**
+     * draw event in DayView view
+     */
     private void addNewEvent()
     {
-        if( desc.getText().equals("") || choiceBoxE.getValue().equals("") || choiceBoxS.getValue().equals("") )
+        if( textArea.getText().equals("") || choiceBoxE.getValue() == null || choiceBoxS.getValue() == null )
             return;
         double startHour = Double.parseDouble(choiceBoxS.getValue());
         double endHour = Double.parseDouble(choiceBoxE.getValue());
         if( endHour <= startHour )
             return;
 
-        Rectangle rect = new Rectangle(20,startHour*25 + 6, 80, (endHour-startHour)*25);
+        parentNode.setStyle("-fx-background-color: #ed3838");
+
+        Rectangle rect = new Rectangle(20,startHour*25 + 6, 120, (endHour-startHour)*25);
         rect.setFill(Color.LIGHTBLUE);
         rect.setStroke(Color.BLUE);
 
-        Text text = new Text(textField.getText());
+        Text text = new Text(worker);
         text.setFill(Color.BLACK);
         text.setStroke(Color.BLACK);
         StackPane pane = new StackPane();
@@ -65,10 +79,49 @@ public class EventController
         pane.setLayoutX(20);
         pane.setLayoutY(startHour*25 + 6);
 
-        Tooltip tooltip = new Tooltip(desc.getText());
+        Tooltip tooltip = new Tooltip(textArea.getText());
         tooltip.setShowDelay(Duration.seconds(0));
         Tooltip.install( pane, tooltip );
 
         parentPane.getChildren().add(pane);
+
+        addToDB();
+    }
+
+    public void setWorker( String worker )
+    {
+        this.worker = worker;
+    }
+    public void setDate( LocalDate date )
+    {
+        this.date = date;
+    }
+    public void setParentPane( AnchorPane pane )
+    {
+        this.parentPane = pane;
+    }
+    public void setParentNode( AnchorPaneNode pane )
+    {
+        this.parentNode = pane;
+    }
+
+    /**
+     * saves event to DB
+     */
+    private void addToDB()
+    {
+        Connection connection = new ConnectionClass().getConnection();
+
+        try
+        {
+            Statement statement = connection.createStatement();
+            String sql = "INSERT INTO dailyEvents VALUES('" + worker + "', '" + date.toString() + "', '" + textArea.getText() + "', '" + choiceBoxS.getValue() + "', '" + choiceBoxE.getValue() + "');";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.close();
+        } catch( SQLException e )
+        {
+            e.printStackTrace();
+        }
     }
 }

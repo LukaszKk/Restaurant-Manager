@@ -82,7 +82,8 @@ public class RegisterController extends Main
      * Show error or if everything is alright save new user in databese
      * Trigger backAction() to close registration form and open login form
      */
-    public void signUpAction() {
+    public void signUpAction()
+    {
         int checked = LoginController.checkFieldsFill(userName, password);
         if (checked != 2)
             return;

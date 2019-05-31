@@ -125,7 +125,7 @@ public class WorkersController
         schedule.setOnAction(actionEvent1 ->
         {
             Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-            StageProperty.loadStage( new FullCalendarView(YearMonth.now()).getView() );
+            StageProperty.loadStage( new FullCalendarView(YearMonth.now(), name.get(index) ).getView() );
             primaryStage.close();
         });
 

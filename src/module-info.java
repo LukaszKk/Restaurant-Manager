@@ -3,7 +3,7 @@ module RestaurantManager
     requires javafx.fxml;
     requires javafx.controls;
     requires java.sql;
-    //requires mysql.connector.java;       ??????
+    //requires mysql.connector.java;       //??????
 
     opens app.account;
     opens app.main;

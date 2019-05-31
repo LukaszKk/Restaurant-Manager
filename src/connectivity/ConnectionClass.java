@@ -33,6 +33,9 @@ public class ConnectionClass {
             //statement.execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS dishes(nameDish VARCHAR(100), price VARCHAR(100) , category VARCHAR(100));";
             statement.execute(sql);
+            sql = "CREATE TABLE IF NOT EXISTS dailyEvents(worker VARCHAR(100), calendarDate VARCHAR(100), description VARCHAR(100), startH DOUBLE, endH DOUBLE);";
+            statement.execute(sql);
+
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
