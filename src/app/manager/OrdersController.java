@@ -66,6 +66,11 @@ public class OrdersController {
         TableColumn<Object, Object> numberPeopleCol = new TableColumn<>("Number Of People");
         TableColumn<Object, Object> timeCol = new TableColumn<>("Time");
         TableColumn<Object, Object> tableCol = new TableColumn<>("Table");
+        numberOrder = getOrderInfo("numberOrder");
+        date = getOrderInfo("date");
+        numberPeople = getOrderInfo("numberPeople");
+        time = getOrderInfo("time");
+        table = getOrderInfo("tableNum");
 
         nameCol.setPrefWidth(tableView.getPrefWidth() / 5);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("numberOrder"));
@@ -123,6 +128,7 @@ public class OrdersController {
     private void showContextMenu(int index, double X, double Y) {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem edit = new MenuItem("Edit");
+        MenuItem delete = new MenuItem("Delete");
 
         edit.setOnAction(actionEvent1 ->
         {
@@ -130,7 +136,25 @@ public class OrdersController {
             StageProperty.loadView("editDish", anchorPane, this.getClass());
         });
 
-        contextMenu.getItems().addAll(edit);
+        delete.setOnAction(actionEvent1 ->
+        {
+
+            Connection connection = new ConnectionClass().getConnection();
+            try {
+                Statement statement = connection.createStatement();
+                String sql = "DELETE FROM orders WHERE numberOrder='" + numberOrder.get(index) + "';";
+                statement.executeUpdate(sql);
+                String sql = "DELETE FROM dishOrder WHERE numberOrder='" + numberOrder.get(index) + "';";
+                statement.executeUpdate(sql);
+                connection.close();
+                listDishes();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        contextMenu.getItems().addAll(edit,delete);
 
         contextMenu.show(anchorPane, X, Y);
         anchorPane.setOnMousePressed(mouseEvent -> contextMenu.hide());
