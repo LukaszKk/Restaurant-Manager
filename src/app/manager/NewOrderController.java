@@ -1,10 +1,16 @@
 package app.account;
 
+import app.manager.Dish;
 import app.manager.DishesController;
 import app.main.Main;
 import app.main.StageProperty;
 import connectivity.ConnectionClass;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -23,12 +29,15 @@ public class NewOrderController extends Main
     public TextField numberPeople;
     public TextField time;
     public TextField table;
+    public TableView tableView;
     public ChoiceBox<String> choiceBox;
     public Hyperlink back;
     public Hyperlink exit;
     public Label loggedAs;
     private ArrayList<String> dishes = getInfo("nameDish");
-
+    private ArrayList<String> dishesList;
+    private ArrayList<String> priceList;
+    private ArrayList<String> categoryList;
 
     /**
      * set initial properties
@@ -70,6 +79,52 @@ public class NewOrderController extends Main
             loadLogin();
     }
 
+    public void addAction() {
+        String cat = new String();
+        String pri = new String();
+
+        Connection connection = new ConnectionClass().getConnection();
+        try
+        {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT  category  FROM dishes WHERE nameDish = '" + choiceBox.getValue()+ "';";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while( resultSet.next() )
+                cat =resultSet.getString(1);
+
+            sql = "SELECT  price  FROM dishes WHERE nameDish = '" + choiceBox.getValue()+ "';";
+            resultSet = statement.executeQuery(sql);
+            while( resultSet.next() )
+                pri =resultSet.getString(1);
+            connection.close();
+        } catch( SQLException e )
+        {
+            e.printStackTrace();
+        }
+        connection = new ConnectionClass().getConnection();
+
+        try {
+            Statement statement = connection.createStatement();
+
+            if (numberOrder.getText().equals("")) {
+                numberOrder.clear();
+                numberOrder.setPromptText("Order number can not be empty!");
+                numberOrder.setStyle("-fx-prompt-text-fill: #ff0000");
+
+                connection.close();
+                return;
+            }
+
+            String sql = "INSERT INTO dishOrder VALUES('" + numberOrder.getText() + "', '" + choiceBox.getValue() + "', '" + cat + "', '" + pri + "');";
+            statement.executeUpdate(sql);
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        listDishes();
+    }
+
     /**
      * Sign Up button clicked
      * Check if fields are filled
@@ -78,10 +133,7 @@ public class NewOrderController extends Main
      * Show error or if everything is alright save new user in databese
      * Trigger backAction() to close registration form and open login form
      */
-    public void signUpAction() {
-        //int checked = LoginController.checkFieldsFill(userName, password);
-        //if (checked != 2)
-        //    return;
+    public void submitAction() {
 
         Connection connection = new ConnectionClass().getConnection();
 
@@ -148,4 +200,70 @@ public class NewOrderController extends Main
 
         return result;
     }
+
+    public ArrayList<String> getDishInfo( String attribute )
+    {
+        ArrayList<String> result = new ArrayList<>();
+        Connection connection = new ConnectionClass().getConnection();
+        try
+        {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT " + attribute + " FROM dishOrder WHERE numberOrder = " + numberOrder.getText() + ";";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while( resultSet.next() )
+                result.add(resultSet.getString(1));
+            connection.close();
+        } catch( SQLException e )
+        {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    private void listDishes()
+    {
+        dishesList = getDishInfo("name");
+        priceList = getDishInfo("price");
+        categoryList = getDishInfo("category");
+
+        TableColumn nameCol = new TableColumn("Name");
+        TableColumn<Object, Object> categoryCol = new TableColumn<>("Category");
+        TableColumn<Object, Object> priceCol = new TableColumn<>("Price");
+
+        nameCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        categoryCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+        priceCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        tableView.getColumns().addAll(nameCol, categoryCol,priceCol);
+
+        tableView.setRowFactory(tv ->
+        {
+            TableRow<Dish> row = new TableRow<>();
+            row.setOnMouseClicked(mouseEvent ->
+            {
+                if( !row.isEmpty() && mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1 )
+                    ;//showContextMenu(row.getIndex(), mouseEvent.getScreenX(), mouseEvent.getScreenY());
+            });
+            return row;
+        });
+
+        ObservableList<Dish> data = FXCollections.observableArrayList();
+
+        for( int i = 0; i < dishesList.size(); i++ )
+        {
+            data.add(new Dish(dishesList.get(i), categoryList.get(i), priceList.get(i)));
+        }
+
+        FilteredList<Dish> flDish = new FilteredList(data, p -> true);
+        tableView.setItems(flDish);
+
+
+    }
+
 }

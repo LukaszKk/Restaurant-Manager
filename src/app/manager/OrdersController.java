@@ -57,8 +57,8 @@ public class OrdersController {
     }
 
     /**
-     * get data about dishes
-     * and list all dishes
+     * get data about order
+     * and list all order
      */
     private void listDishes() {
         TableColumn nameCol = new TableColumn("Number");
@@ -67,19 +67,19 @@ public class OrdersController {
         TableColumn<Object, Object> timeCol = new TableColumn<>("Time");
         TableColumn<Object, Object> tableCol = new TableColumn<>("Table");
 
-        nameCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        nameCol.setPrefWidth(tableView.getPrefWidth() / 5);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("numberOrder"));
 
-        dateCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        dateCol.setPrefWidth(tableView.getPrefWidth() / 5);
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        numberPeopleCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        numberPeopleCol.setPrefWidth(tableView.getPrefWidth() / 5);
         numberPeopleCol.setCellValueFactory(new PropertyValueFactory<>("numberPeople"));
 
-        timeCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        timeCol.setPrefWidth(tableView.getPrefWidth() / 5);
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
 
-        tableCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        tableCol.setPrefWidth(tableView.getPrefWidth() / 5);
         tableCol.setCellValueFactory(new PropertyValueFactory<>("table"));
 
         tableView.getColumns().addAll(nameCol, dateCol, numberPeopleCol, timeCol,tableCol );

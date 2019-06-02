@@ -19,23 +19,23 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <TextField fx:id="numberOrder" layoutX="57.0" layoutY="78.0" prefHeight="30.0" prefWidth="182.0" promptText="Name" text="Number">
+        <TextField fx:id="numberOrder" layoutX="57.0" layoutY="78.0" prefHeight="30.0" prefWidth="182.0" promptText="Number">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-        <TextField fx:id="date" layoutX="57.0" layoutY="124.0" prefHeight="34.0" prefWidth="182.0" promptText="Price" text="Date">
+        <TextField fx:id="date" layoutX="57.0" layoutY="124.0" prefHeight="34.0" prefWidth="182.0" promptText="Date">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-        <Button layoutX="471.0" layoutY="37.0" mnemonicParsing="false" text="Add" />
-        <TextField fx:id="numberPeople" layoutX="57.0" layoutY="174.0" prefHeight="36.0" prefWidth="182.0" text="Number_of_people " />
-        <TextField fx:id="time" layoutX="57.0" layoutY="227.0" prefHeight="36.0" prefWidth="182.0" text="Time" />
-        <TextField fx:id="table" layoutX="57.0" layoutY="275.0" prefHeight="36.0" prefWidth="182.0" text="Table" />
-        <TableView layoutX="300.0" layoutY="100.0" prefHeight="292.0" prefWidth="294.0" />
+        <Button layoutX="471.0" layoutY="37.0" onAction="#addAction" mnemonicParsing="false" text="Add" />
+        <TextField fx:id="numberPeople" layoutX="57.0" layoutY="174.0" prefHeight="36.0" prefWidth="182.0" promptText="Number of people " />
+        <TextField fx:id="time" layoutX="57.0" layoutY="227.0" prefHeight="36.0" prefWidth="182.0" promptText="Time" />
+        <TextField fx:id="table" layoutX="57.0" layoutY="275.0" prefHeight="36.0" prefWidth="182.0" promptText="Table" />
+        <TableView fx:id="tableView" layoutX="300.0" layoutY="100.0" prefHeight="292.0" prefWidth="294.0" />
         <ChoiceBox fx:id="choiceBox" layoutX="313.0" layoutY="35.0" prefWidth="150.0" />
-        <Button fx:id="signUpButton" layoutX="67.0" layoutY="335.0" mnemonicParsing="false" onAction="#signUpAction" text="Submit" />
+        <Button fx:id="signUpButton" layoutX="67.0" layoutY="335.0" mnemonicParsing="false" onAction="#submitAction" text="Submit" />
         <Hyperlink fx:id="back" layoutX="111.0" layoutY="28.0" onAction="#backAction" textFill="#646464" />
         <Hyperlink fx:id="exit" layoutX="545.0" layoutY="14.0" onAction="#exitAction" textFill="#646464" />
         <Label fx:id="loggedAs" layoutX="458.0" layoutY="18.0" style="visibility:hidden" />
