@@ -4,6 +4,7 @@ import app.manager.Dish;
 import app.manager.DishesController;
 import app.main.Main;
 import app.main.StageProperty;
+import app.manager.EditDishController;
 import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -114,8 +115,20 @@ public class NewOrderController extends Main
                 connection.close();
                 return;
             }
+            String sql = "SELECT numberOrder FROM orders;";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                if (resultSet.getString(1).equals(numberOrder.getText())) {
+                    numberOrder.clear();
+                    numberOrder.setPromptText("Order number is already taken!");
+                    numberOrder.setStyle("-fx-prompt-text-fill: #ff0000");
 
-            String sql = "INSERT INTO dishOrder VALUES('" + numberOrder.getText() + "', '" + choiceBox.getValue() + "', '" + cat + "', '" + pri + "');";
+                    connection.close();
+                    return;
+                }
+            }
+
+            sql = "INSERT INTO dishOrder VALUES('" + numberOrder.getText() + "', '" + choiceBox.getValue() + "', '" + cat + "', '" + pri + "');";
             statement.executeUpdate(sql);
             connection.close();
         } catch (SQLException e) {
@@ -248,7 +261,7 @@ public class NewOrderController extends Main
             row.setOnMouseClicked(mouseEvent ->
             {
                 if( !row.isEmpty() && mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1 )
-                    ;//showContextMenu(row.getIndex(), mouseEvent.getScreenX(), mouseEvent.getScreenY());
+                    showContextMenu(row.getIndex(), mouseEvent.getScreenX(), mouseEvent.getScreenY());
             });
             return row;
         });
@@ -263,6 +276,35 @@ public class NewOrderController extends Main
         FilteredList<Dish> flDish = new FilteredList(data, p -> true);
         tableView.setItems(flDish);
 
+
+    }
+
+    private void showContextMenu( int index, double X, double Y )
+    {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem delete = new MenuItem("Delete");
+
+        delete.setOnAction(actionEvent1 ->
+        {
+
+            Connection connection = new ConnectionClass().getConnection();
+            try {
+                Statement statement = connection.createStatement();
+                //DELETE FROM dishes WHERE condition;
+                String sql = "DELETE FROM dishOrder WHERE name='" + dishesList.get(index) + "';";
+                statement.executeUpdate(sql);
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            listDishes();
+        });
+
+        contextMenu.getItems().addAll(delete);
+
+        contextMenu.show(anchorPane, X, Y);
+        anchorPane.setOnMousePressed(mouseEvent -> contextMenu.hide());
+        tableView.setOnMousePressed(mouseEvent -> contextMenu.hide());
 
     }
 
