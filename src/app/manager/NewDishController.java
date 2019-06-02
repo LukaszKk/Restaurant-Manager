@@ -72,9 +72,6 @@ public class NewDishController extends Main
      * Trigger backAction() to close registration form and open login form
      */
     public void signUpAction() {
-        //int checked = LoginController.checkFieldsFill(userName, password);
-        //if (checked != 2)
-        //    return;
 
         Connection connection = new ConnectionClass().getConnection();
 
