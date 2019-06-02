@@ -38,6 +38,4 @@ public class ManagerController
     {
         StageProperty.loadView("orders", anchorPane, this.getClass());
     }
-
-
 }

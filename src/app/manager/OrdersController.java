@@ -31,9 +31,12 @@ public class OrdersController {
     public Label loggedAs;
     public TableView tableView;
     public TextField search;
-    private ArrayList<String> name = getDishesInfo("nameDish");
-    private ArrayList<String> price = getDishesInfo("price");
-    private ArrayList<String> category = getDishesInfo("category");
+    private ArrayList<String> numberOrder = getOrderInfo("numberOrder");
+    private ArrayList<String> date = getOrderInfo("date");
+    private ArrayList<String> numberPeople = getOrderInfo("numberPeople");
+    private ArrayList<String> time = getOrderInfo("time");
+    private ArrayList<String> table = getOrderInfo("tableNum");
+
 
     public void initialize() {
         loggedAs.setText(Main.loggedAs);
@@ -49,8 +52,8 @@ public class OrdersController {
         StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
-    public void createDishAction() {
-        StageProperty.loadView("newDish", anchorPane, this.getClass());
+    public void makeOrderAction() {
+        StageProperty.loadView("newOrder", anchorPane, this.getClass());
     }
 
     /**
@@ -58,24 +61,32 @@ public class OrdersController {
      * and list all dishes
      */
     private void listDishes() {
-        TableColumn nameCol = new TableColumn("Name");
-        TableColumn<Object, Object> positionCol = new TableColumn<>("Category");
-        TableColumn<Object, Object> priceCol = new TableColumn<>("Price");
+        TableColumn nameCol = new TableColumn("Number");
+        TableColumn<Object, Object> dateCol = new TableColumn<>("Date");
+        TableColumn<Object, Object> numberPeopleCol = new TableColumn<>("Number Of People");
+        TableColumn<Object, Object> timeCol = new TableColumn<>("Time");
+        TableColumn<Object, Object> tableCol = new TableColumn<>("Table");
 
         nameCol.setPrefWidth(tableView.getPrefWidth() / 3);
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("numberOrder"));
 
-        positionCol.setPrefWidth(tableView.getPrefWidth() / 3);
-        positionCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        dateCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        priceCol.setPrefWidth(tableView.getPrefWidth() / 3);
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        numberPeopleCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        numberPeopleCol.setCellValueFactory(new PropertyValueFactory<>("numberPeople"));
 
-        tableView.getColumns().addAll(nameCol, positionCol, priceCol);
+        timeCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+        tableCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        tableCol.setCellValueFactory(new PropertyValueFactory<>("table"));
+
+        tableView.getColumns().addAll(nameCol, dateCol, numberPeopleCol, timeCol,tableCol );
 
         tableView.setRowFactory(tv ->
         {
-            TableRow<Dish> row = new TableRow<>();
+            TableRow<Order> row = new TableRow<>();
             row.setOnMouseClicked(mouseEvent ->
             {
                 if (!row.isEmpty() && mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1)
@@ -84,17 +95,17 @@ public class OrdersController {
             return row;
         });
 
-        ObservableList<Dish> data = FXCollections.observableArrayList();
+        ObservableList<Order> data = FXCollections.observableArrayList();
 
-        for (int i = 0; i < name.size(); i++) {
-            data.add(new Dish(name.get(i), price.get(i), category.get(i)));
+        for (int i = 0; i < numberOrder.size(); i++) {
+            data.add(new Order(numberOrder.get(i), date.get(i), numberPeople.get(i), time.get(i), table.get(i)));
         }
 
-        FilteredList<Dish> flDish = new FilteredList(data, p -> true);
-        tableView.setItems(flDish);
+        FilteredList<Order> flOrder = new FilteredList(data, p -> true);
+        tableView.setItems(flOrder);
 
         search.setOnKeyReleased(keyEvent ->
-                flDish.setPredicate(p -> p.getCategory().toLowerCase().contains(search.getText().toLowerCase().trim()))
+                flOrder.setPredicate(p -> p.getNumberOrder().toLowerCase().contains(search.getText().toLowerCase().trim()))
         );
 
         if (!loggedAs.getText().contains("Manager")) {
@@ -115,7 +126,7 @@ public class OrdersController {
 
         edit.setOnAction(actionEvent1 ->
         {
-            EditDishController.dishNameDB = name.get(index);
+            EditDishController.dishNameDB = numberOrder.get(index);
             StageProperty.loadView("editDish", anchorPane, this.getClass());
         });
 
@@ -132,12 +143,12 @@ public class OrdersController {
      * @param attribute
      * @return
      */
-    public ArrayList<String> getDishesInfo(String attribute) {
+    public ArrayList<String> getOrderInfo(String attribute) {
         ArrayList<String> result = new ArrayList<>();
         Connection connection = new ConnectionClass().getConnection();
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT " + attribute + " FROM dishes;";
+            String sql = "SELECT " + attribute + " FROM orders;";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next())
                 result.add(resultSet.getString(1));

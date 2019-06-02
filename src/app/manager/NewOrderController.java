@@ -51,7 +51,7 @@ public class NewOrderController extends Main
      * Open login form
      */
     public void backAction() {
-        StageProperty.loadView("dishes", anchorPane, this.getClass());
+        StageProperty.loadView("orders", anchorPane, this.getClass());
     }
 
     public void loadLogin() {
@@ -99,7 +99,8 @@ public class NewOrderController extends Main
                     return;
                 }
             }
-            //sql = "INSERT INTO dishes VALUES('" + dishName.getText() + "', '" + price.getText() + "', '" + choiceBox.getValue() + "');";
+
+            sql = "INSERT INTO orders VALUES('" + numberOrder.getText() + "', '" + date.getText() + "', '" + numberPeople.getText() + "', '" + time.getText() + "', '" + table.getText() + "');";
             statement.executeUpdate(sql);
             connection.close();
             if (!Main.isFirstTimeRun)
@@ -135,7 +136,7 @@ public class NewOrderController extends Main
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT " + attribute + " FROM orders;";
+            String sql = "SELECT " + attribute + " FROM dishes;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
                 result.add(resultSet.getString(1));
