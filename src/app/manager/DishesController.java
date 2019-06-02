@@ -32,15 +32,15 @@ public class DishesController
     public Label loggedAs;
     public TableView tableView;
     public TextField search;
-    private ArrayList<String> name = getWorkersInfo("nameDish");
-    private ArrayList<String> price = getWorkersInfo("price");
-    private ArrayList<String> category = getWorkersInfo("category");
+    private ArrayList<String> name = getDishesInfo("nameDish");
+    private ArrayList<String> price = getDishesInfo("price");
+    private ArrayList<String> category = getDishesInfo("category");
 
     public void initialize()
     {
         loggedAs.setText(Main.loggedAs);
         tableView.setEditable(true);
-        listWorkers();
+        listDishes();
     }
 
     public void backAction()
@@ -59,10 +59,10 @@ public class DishesController
     }
 
     /**
-     * get data about workers
-     * and list all workers
+     * get data about dishes
+     * and list all dishes
      */
-    private void listWorkers()
+    private void listDishes()
     {
         TableColumn nameCol = new TableColumn("Name");
         TableColumn<Object, Object> positionCol = new TableColumn<>("Category");
@@ -141,7 +141,7 @@ public class DishesController
      * @param attribute
      * @return
      */
-    private ArrayList<String> getWorkersInfo( String attribute )
+    private ArrayList<String> getDishesInfo( String attribute )
     {
         ArrayList<String> result = new ArrayList<>();
         Connection connection = new ConnectionClass().getConnection();
