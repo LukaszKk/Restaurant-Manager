@@ -23,8 +23,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 
 
-public class DishesController
-{
+public class OrdersController {
     public AnchorPane anchorPane;
     public Hyperlink backButton;
     public Button createAccountButton;
@@ -36,25 +35,21 @@ public class DishesController
     private ArrayList<String> price = getDishesInfo("price");
     private ArrayList<String> category = getDishesInfo("category");
 
-    public void initialize()
-    {
+    public void initialize() {
         loggedAs.setText(Main.loggedAs);
         tableView.setEditable(true);
         listDishes();
     }
 
-    public void backAction()
-    {
+    public void backAction() {
         StageProperty.loadView("manager", anchorPane, this.getClass());
     }
 
-    public void logOutAction()
-    {
+    public void logOutAction() {
         StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
-    public void createDishAction()
-    {
+    public void createDishAction() {
         StageProperty.loadView("newDish", anchorPane, this.getClass());
     }
 
@@ -62,8 +57,7 @@ public class DishesController
      * get data about dishes
      * and list all dishes
      */
-    private void listDishes()
-    {
+    private void listDishes() {
         TableColumn nameCol = new TableColumn("Name");
         TableColumn<Object, Object> positionCol = new TableColumn<>("Category");
         TableColumn<Object, Object> priceCol = new TableColumn<>("Price");
@@ -77,14 +71,14 @@ public class DishesController
         priceCol.setPrefWidth(tableView.getPrefWidth() / 3);
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        tableView.getColumns().addAll(nameCol, positionCol,priceCol);
+        tableView.getColumns().addAll(nameCol, positionCol, priceCol);
 
         tableView.setRowFactory(tv ->
         {
             TableRow<Dish> row = new TableRow<>();
             row.setOnMouseClicked(mouseEvent ->
             {
-                if( !row.isEmpty() && mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1 )
+                if (!row.isEmpty() && mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1)
                     showContextMenu(row.getIndex(), mouseEvent.getScreenX(), mouseEvent.getScreenY());
             });
             return row;
@@ -92,8 +86,7 @@ public class DishesController
 
         ObservableList<Dish> data = FXCollections.observableArrayList();
 
-        for( int i = 0; i < name.size(); i++ )
-        {
+        for (int i = 0; i < name.size(); i++) {
             data.add(new Dish(name.get(i), price.get(i), category.get(i)));
         }
 
@@ -104,8 +97,7 @@ public class DishesController
                 flDish.setPredicate(p -> p.getCategory().toLowerCase().contains(search.getText().toLowerCase().trim()))
         );
 
-        if( !loggedAs.getText().contains("Manager") )
-        {
+        if (!loggedAs.getText().contains("Manager")) {
             createAccountButton.setVisible(false);
         }
     }
@@ -117,8 +109,7 @@ public class DishesController
      * @param X
      * @param Y
      */
-    private void showContextMenu( int index, double X, double Y )
-    {
+    private void showContextMenu(int index, double X, double Y) {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem edit = new MenuItem("Edit");
 
@@ -141,38 +132,32 @@ public class DishesController
      * @param attribute
      * @return
      */
-    public ArrayList<String> getDishesInfo( String attribute )
-    {
+    public ArrayList<String> getDishesInfo(String attribute) {
         ArrayList<String> result = new ArrayList<>();
         Connection connection = new ConnectionClass().getConnection();
-        try
-        {
+        try {
             Statement statement = connection.createStatement();
             String sql = "SELECT " + attribute + " FROM dishes;";
             ResultSet resultSet = statement.executeQuery(sql);
-            while( resultSet.next() )
+            while (resultSet.next())
                 result.add(resultSet.getString(1));
             connection.close();
-        } catch( SQLException e )
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return result;
     }
 
-    public void workersClicked()
-    {
+    public void workersClicked() {
         StageProperty.loadView("workers", anchorPane, this.getClass());
     }
 
-    public void logOutClicked()
-    {
+    public void logOutClicked() {
         StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
-    public void dishesClicked()
-    {
+    public void dishesClicked() {
         StageProperty.loadView("dishes", anchorPane, this.getClass());
     }
 }

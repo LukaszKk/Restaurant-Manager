@@ -34,5 +34,10 @@ public class ManagerController
         StageProperty.loadView("dishes", anchorPane, this.getClass());
     }
 
+    public void ordersClicked()
+    {
+        StageProperty.loadView("orders", anchorPane, this.getClass());
+    }
+
 
 }

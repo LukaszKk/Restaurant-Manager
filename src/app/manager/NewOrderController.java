@@ -1,5 +1,6 @@
 package app.account;
 
+import app.manager.DishesController;
 import app.main.Main;
 import app.main.StageProperty;
 import connectivity.ConnectionClass;
@@ -11,17 +12,23 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
-public class NewDishController extends Main
+public class NewOrderController extends Main
 {
     public AnchorPane anchorPane;
     public Button signUpButton;
-    public TextField dishName;
-    public TextField price;
+    public TextField numberOrder;
+    public TextField date;
+    public TextField numberPeople;
+    public TextField time;
+    public TextField table;
     public ChoiceBox<String> choiceBox;
     public Hyperlink back;
     public Hyperlink exit;
     public Label loggedAs;
+    private ArrayList<String> dishes = getInfo("nameDish");
+
 
     /**
      * set initial properties
@@ -33,9 +40,9 @@ public class NewDishController extends Main
         exit.setText("");
         loggedAs.setVisible(true);
         loggedAs.setText(Main.loggedAs);
-        choiceBox.getItems().add("Soup");
-        choiceBox.getItems().add("Meat");
-        choiceBox.getItems().add("Dessert");
+        for(int i= 0; i< dishes.size(); i++)
+            choiceBox.getItems().add(dishes.get(i));
+
     }
 
     /**
@@ -72,24 +79,27 @@ public class NewDishController extends Main
      * Trigger backAction() to close registration form and open login form
      */
     public void signUpAction() {
+        //int checked = LoginController.checkFieldsFill(userName, password);
+        //if (checked != 2)
+        //    return;
 
         Connection connection = new ConnectionClass().getConnection();
 
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT nameDish FROM dishes;";
+            String sql = "SELECT numberOrder FROM orders;";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                if (resultSet.getString(1).equals(dishName.getText())) {
-                    dishName.clear();
-                    dishName.setPromptText("Dish name is already taken!");
-                    dishName.setStyle("-fx-prompt-text-fill: #ff0000");
-                    //password.clear();
+                if (resultSet.getString(1).equals(numberOrder.getText())) {
+                    numberOrder.clear();
+                    numberOrder.setPromptText("Order number is already taken!");
+                    numberOrder.setStyle("-fx-prompt-text-fill: #ff0000");
+
                     connection.close();
                     return;
                 }
             }
-            sql = "INSERT INTO dishes VALUES('" + dishName.getText() + "', '" + price.getText() + "', '" + choiceBox.getValue() + "');";
+            //sql = "INSERT INTO dishes VALUES('" + dishName.getText() + "', '" + price.getText() + "', '" + choiceBox.getValue() + "');";
             statement.executeUpdate(sql);
             connection.close();
             if (!Main.isFirstTimeRun)
@@ -116,5 +126,25 @@ public class NewDishController extends Main
     public void dishesClicked()
     {
         StageProperty.loadView("dishes", anchorPane, this.getClass());
+    }
+
+    public ArrayList<String> getInfo( String attribute )
+    {
+        ArrayList<String> result = new ArrayList<>();
+        Connection connection = new ConnectionClass().getConnection();
+        try
+        {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT " + attribute + " FROM orders;";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while( resultSet.next() )
+                result.add(resultSet.getString(1));
+            connection.close();
+        } catch( SQLException e )
+        {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }
