@@ -1,4 +1,4 @@
-package app.manager.calendar;
+package app.schedule;
 
 import app.main.StageProperty;
 import connectivity.ConnectionClass;
@@ -28,18 +28,16 @@ public class DayView
 {
     private LocalDate date;
     public AnchorPane anchorPane;
-    public String worker;
     private AnchorPaneNode parentNode;
 
-    public DayView( LocalDate date, String worker, AnchorPaneNode parentNode )
+    public DayView( LocalDate date, AnchorPaneNode parentNode )
     {
         this.date = date;
-        this.worker = worker;
         this.parentNode = parentNode;
         anchorPane = new AnchorPane();
         StageProperty.loadStage(anchorPane, 800, 625);
         Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-        primaryStage.setTitle(date.toString() + " " + worker);
+        primaryStage.setTitle(date.toString());
 
         drawEvents();
     }
@@ -68,7 +66,7 @@ public class DayView
 
     private void addEvent()
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/views/addEvent.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/views/addAllEvents.fxml"));
         Parent root = null;
         try
         {
@@ -79,7 +77,6 @@ public class DayView
         }
 
         EventController controller = fxmlLoader.getController();
-        controller.setWorker(worker);
         controller.setDate(date);
         controller.setParentPane(anchorPane);
         controller.setParentNode(parentNode);
@@ -96,7 +93,7 @@ public class DayView
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM dailyEvents WHERE worker='"+ worker +"';";
+            String sql = "SELECT * FROM dailyEvents;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
             {

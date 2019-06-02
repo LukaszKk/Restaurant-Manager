@@ -114,7 +114,7 @@ public class WorkersController
     {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem edit = new MenuItem("Edit");
-        MenuItem schedule = new MenuItem("Schedule");
+        MenuItem schedule = new MenuItem("schedule");
 
         edit.setOnAction(actionEvent1 ->
         {
@@ -147,7 +147,7 @@ public class WorkersController
      * @param attribute
      * @return
      */
-    private ArrayList<String> getWorkersInfo( String attribute )
+    public static ArrayList<String> getWorkersInfo( String attribute )
     {
         ArrayList<String> result = new ArrayList<>();
         Connection connection = new ConnectionClass().getConnection();

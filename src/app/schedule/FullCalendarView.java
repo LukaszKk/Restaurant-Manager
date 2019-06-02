@@ -1,6 +1,5 @@
-package app.manager.calendar;
+package app.schedule;
 
-import app.main.StageProperty;
 import connectivity.ConnectionClass;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -25,20 +24,18 @@ public class FullCalendarView
     private VBox view;
     private Text calendarTitle;
     private YearMonth currentYearMonth;
-    private String worker;
 
     /**
      * Create a calendar view
      *
      * @param yearMonth year month to create the calendar of
      */
-    public FullCalendarView( YearMonth yearMonth, String worker )
+    public FullCalendarView( YearMonth yearMonth )
     {
         currentYearMonth = yearMonth;
-        this.worker = worker;
         // Create the calendar grid pane
         GridPane calendar = new GridPane();
-        calendar.setPrefSize(600, 400);
+        calendar.setPrefSize(555, 345);
         calendar.setGridLinesVisible(true);
 
         // Create rows and columns with anchor panes for the calendar
@@ -47,13 +44,13 @@ public class FullCalendarView
             for( int j = 0; j < 7; j++ )
             {
                 AnchorPaneNode ap = new AnchorPaneNode();
-                ap.setPrefSize(200, 200);
+                ap.setPrefSize(79, 55);
                 calendar.add(ap, j, i);
                 allCalendarDays.add(ap);
 
                 ap.setOnMouseClicked( e ->
                 {
-                    DayView dayView = new DayView( ap.date, worker, ap );
+                    DayView dayView = new DayView( ap.date, ap );
                     dayView.draw();
                 });
             }
@@ -64,12 +61,12 @@ public class FullCalendarView
                 new Text("Wednesday"), new Text("Thursday"), new Text("Friday"),
                 new Text("Saturday") };
         GridPane dayLabels = new GridPane();
-        dayLabels.setPrefWidth(600);
+        dayLabels.setPrefWidth(555);
         int col = 0;
         for( Text txt : dayNames )
         {
             AnchorPane ap = new AnchorPane();
-            ap.setPrefSize(200, 10);
+            ap.setPrefSize(79, 10);
             AnchorPane.setBottomAnchor(txt, 5.0);
             ap.getChildren().add(txt);
             dayLabels.add(ap, col++, 0);
@@ -85,15 +82,11 @@ public class FullCalendarView
         previousYear.setOnAction(e -> previousYear());
         Button nextYear = new Button(">>");
         nextYear.setOnAction(e -> nextYear());
-        Button back = new Button("Back");
-        back.setOnAction(e -> StageProperty.loadView("workers", this.getView(), this.getClass()));
-        HBox titleBar = new HBox(previousYear, previousMonth, calendarTitle, nextMonth, nextYear, back);
+        HBox titleBar = new HBox(previousYear, previousMonth, calendarTitle, nextMonth, nextYear);
         titleBar.setSpacing(10);
         titleBar.setAlignment(Pos.BASELINE_CENTER);
-
         // Populate calendar with the appropriate day numbers
         populateCalendar(yearMonth);
-
         // Create the calendar view
         view = new VBox(titleBar, dayLabels, calendar);
     }
@@ -118,7 +111,7 @@ public class FullCalendarView
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM dailyEvents WHERE worker='"+ worker +"';";
+            String sql = "SELECT * FROM dailyEvents;";
             resultSet = statement.executeQuery(sql);
         } catch( SQLException e )
         {
