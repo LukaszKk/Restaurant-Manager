@@ -1,5 +1,6 @@
 package app.manager;
 
+import app.manager.EditOrderController;
 import app.main.Main;
 import app.main.StageProperty;
 import app.manager.EditWorkersController;
@@ -132,8 +133,8 @@ public class OrdersController {
 
         edit.setOnAction(actionEvent1 ->
         {
-            EditDishController.dishNameDB = numberOrder.get(index);
-            StageProperty.loadView("editDish", anchorPane, this.getClass());
+            EditOrderController.numOrder = numberOrder.get(index);
+            StageProperty.loadView("editOrder", anchorPane, this.getClass());
         });
 
         delete.setOnAction(actionEvent1 ->
@@ -144,7 +145,7 @@ public class OrdersController {
                 Statement statement = connection.createStatement();
                 String sql = "DELETE FROM orders WHERE numberOrder='" + numberOrder.get(index) + "';";
                 statement.executeUpdate(sql);
-                String sql = "DELETE FROM dishOrder WHERE numberOrder='" + numberOrder.get(index) + "';";
+                sql = "DELETE FROM dishOrder WHERE numberOrder='" + numberOrder.get(index) + "';";
                 statement.executeUpdate(sql);
                 connection.close();
                 listDishes();
