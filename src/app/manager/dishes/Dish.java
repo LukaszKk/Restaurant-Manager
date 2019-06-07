@@ -1,4 +1,4 @@
-package app.manager;
+package app.manager.dishes;
 
 public class Dish {
     private String nameDish;

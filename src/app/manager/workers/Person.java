@@ -1,4 +1,4 @@
-package app.manager;
+package app.manager.workers;
 
 public class Person {
     private String name;

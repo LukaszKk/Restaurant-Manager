@@ -1,10 +1,8 @@
-package app.account;
+package app.manager.orders;
 
-import app.manager.Dish;
-import app.manager.DishesController;
 import app.main.Main;
 import app.main.StageProperty;
-import app.manager.EditDishController;
+import app.manager.dishes.Dish;
 import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,12 +43,13 @@ public class NewOrderController extends Main
      * disable focusing cursor on TextField
      * different views if its first time run
      */
-    public void initialize() {
+    public void initialize()
+    {
         back.setVisible(true);
         exit.setText("");
         loggedAs.setVisible(true);
         loggedAs.setText(Main.loggedAs);
-        for(int i= 0; i< dishes.size(); i++)
+        for( int i = 0; i < dishes.size(); i++ )
             choiceBox.getItems().add(dishes.get(i));
 
     }
@@ -60,11 +59,13 @@ public class NewOrderController extends Main
      * Close registration form
      * Open login form
      */
-    public void backAction() {
+    public void backAction()
+    {
         StageProperty.loadView("orders", anchorPane, this.getClass());
     }
 
-    public void loadLogin() {
+    public void loadLogin()
+    {
         StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
@@ -72,15 +73,18 @@ public class NewOrderController extends Main
      * Exit button clicked
      * Close registration form
      */
-    public void exitAction() {
-        if (Main.isFirstTimeRun) {
+    public void exitAction()
+    {
+        if( Main.isFirstTimeRun )
+        {
             Stage registerStage = (Stage) anchorPane.getScene().getWindow();
             registerStage.close();
         } else
             loadLogin();
     }
 
-    public void addAction() {
+    public void addAction()
+    {
         String cat = new String();
         String pri = new String();
 
@@ -88,15 +92,15 @@ public class NewOrderController extends Main
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT  category  FROM dishes WHERE nameDish = '" + choiceBox.getValue()+ "';";
+            String sql = "SELECT  category  FROM dishes WHERE nameDish = '" + choiceBox.getValue() + "';";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
-                cat =resultSet.getString(1);
+                cat = resultSet.getString(1);
 
-            sql = "SELECT  price  FROM dishes WHERE nameDish = '" + choiceBox.getValue()+ "';";
+            sql = "SELECT  price  FROM dishes WHERE nameDish = '" + choiceBox.getValue() + "';";
             resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
-                pri =resultSet.getString(1);
+                pri = resultSet.getString(1);
             connection.close();
         } catch( SQLException e )
         {
@@ -104,10 +108,12 @@ public class NewOrderController extends Main
         }
         connection = new ConnectionClass().getConnection();
 
-        try {
+        try
+        {
             Statement statement = connection.createStatement();
 
-            if (numberOrder.getText().equals("")) {
+            if( numberOrder.getText().equals("") )
+            {
                 numberOrder.clear();
                 numberOrder.setPromptText("Order number can not be empty!");
                 numberOrder.setStyle("-fx-prompt-text-fill: #ff0000");
@@ -117,8 +123,10 @@ public class NewOrderController extends Main
             }
             String sql = "SELECT numberOrder FROM orders;";
             ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()) {
-                if (resultSet.getString(1).equals(numberOrder.getText())) {
+            while( resultSet.next() )
+            {
+                if( resultSet.getString(1).equals(numberOrder.getText()) )
+                {
                     numberOrder.clear();
                     numberOrder.setPromptText("Order number is already taken!");
                     numberOrder.setStyle("-fx-prompt-text-fill: #ff0000");
@@ -131,7 +139,8 @@ public class NewOrderController extends Main
             sql = "INSERT INTO dishOrder VALUES('" + numberOrder.getText() + "', '" + choiceBox.getValue() + "', '" + cat + "', '" + pri + "');";
             statement.executeUpdate(sql);
             connection.close();
-        } catch (SQLException e) {
+        } catch( SQLException e )
+        {
             e.printStackTrace();
         }
 
@@ -146,16 +155,20 @@ public class NewOrderController extends Main
      * Show error or if everything is alright save new user in databese
      * Trigger backAction() to close registration form and open login form
      */
-    public void submitAction() {
+    public void submitAction()
+    {
 
         Connection connection = new ConnectionClass().getConnection();
 
-        try {
+        try
+        {
             Statement statement = connection.createStatement();
             String sql = "SELECT numberOrder FROM orders;";
             ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()) {
-                if (resultSet.getString(1).equals(numberOrder.getText())) {
+            while( resultSet.next() )
+            {
+                if( resultSet.getString(1).equals(numberOrder.getText()) )
+                {
                     numberOrder.clear();
                     numberOrder.setPromptText("Order number is already taken!");
                     numberOrder.setStyle("-fx-prompt-text-fill: #ff0000");
@@ -168,13 +181,15 @@ public class NewOrderController extends Main
             sql = "INSERT INTO orders VALUES('" + numberOrder.getText() + "', '" + date.getText() + "', '" + numberPeople.getText() + "', '" + time.getText() + "', '" + table.getText() + "');";
             statement.executeUpdate(sql);
             connection.close();
-            if (!Main.isFirstTimeRun)
+            if( !Main.isFirstTimeRun )
                 backAction();
-            else {
+            else
+            {
                 Main.isFirstTimeRun = false;
                 loadLogin();
             }
-        } catch (SQLException e) {
+        } catch( SQLException e )
+        {
             e.printStackTrace();
         }
     }
@@ -253,7 +268,7 @@ public class NewOrderController extends Main
         priceCol.setPrefWidth(tableView.getPrefWidth() / 3);
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        tableView.getColumns().addAll(nameCol, categoryCol,priceCol);
+        tableView.getColumns().addAll(nameCol, categoryCol, priceCol);
 
         tableView.setRowFactory(tv ->
         {
@@ -288,13 +303,15 @@ public class NewOrderController extends Main
         {
 
             Connection connection = new ConnectionClass().getConnection();
-            try {
+            try
+            {
                 Statement statement = connection.createStatement();
                 //DELETE FROM dishes WHERE condition;
                 String sql = "DELETE FROM dishOrder WHERE name='" + dishesList.get(index) + "';";
                 statement.executeUpdate(sql);
                 connection.close();
-            } catch (SQLException e) {
+            } catch( SQLException e )
+            {
                 e.printStackTrace();
             }
             listDishes();

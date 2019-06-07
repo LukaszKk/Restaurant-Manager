@@ -37,7 +37,7 @@ public class DayView
         anchorPane = new AnchorPane();
         StageProperty.loadStage(anchorPane, 800, 625);
         Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-        primaryStage.setTitle(date.toString());
+        primaryStage.setTitle(date.toString() + " Waiters schedule" );
 
         drawEvents();
     }
@@ -114,7 +114,7 @@ public class DayView
      */
     private void drawEvent( String worker, String description, double startH, double endH )
     {
-        Rectangle rect = new Rectangle(20,startH*25 + 6, 120, (endH-startH)*25);
+        Rectangle rect = new Rectangle(20,startH*25 + 6, 770, (endH-startH)*25);
         rect.setFill(Color.LIGHTBLUE);
         rect.setStroke(Color.BLUE);
 

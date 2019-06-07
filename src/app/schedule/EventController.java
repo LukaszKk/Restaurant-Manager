@@ -1,6 +1,6 @@
 package app.schedule;
 
-import app.manager.WorkersController;
+import app.manager.workers.WorkersController;
 import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -47,7 +46,10 @@ public class EventController
         var workersPosition = WorkersController.getWorkersInfo("position");
         var workers = new ArrayList<String>();
         for( int i = 0; i < workersName.size(); i++ )
-            workers.add( workersName.get(i) + "-" + workersPosition.get(i) );
+        {
+            if( workersPosition.get(i).equals("Waiter") )
+                workers.add(workersName.get(i) + " - " + workersPosition.get(i));
+        }
 
         choiceBoxS.getItems().addAll( hours );
         choiceBoxE.getItems().addAll( hours );
@@ -79,7 +81,7 @@ public class EventController
 
         worker = choiceBoxWorker.getValue().split("-")[0];
 
-        Rectangle rect = new Rectangle(20,startHour*25 + 6, 120, (endHour-startHour)*25);
+        Rectangle rect = new Rectangle(20,startHour*25 + 6, 770, (endHour-startHour)*25);
         rect.setFill(Color.LIGHTBLUE);
         rect.setStroke(Color.BLUE);
 

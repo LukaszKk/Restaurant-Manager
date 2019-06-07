@@ -1,9 +1,7 @@
-package app.manager;
+package app.manager.workers;
 
 import app.main.Main;
 import app.main.StageProperty;
-import app.manager.EditWorkersController;
-import app.manager.Person;
 import app.manager.calendar.FullCalendarView;
 import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
@@ -23,7 +21,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 
 
-public class DishesController
+public class WorkersController
 {
     public AnchorPane anchorPane;
     public Hyperlink backButton;
@@ -32,15 +30,14 @@ public class DishesController
     public Label loggedAs;
     public TableView tableView;
     public TextField search;
-    private ArrayList<String> name = getDishesInfo("nameDish");
-    private ArrayList<String> price = getDishesInfo("price");
-    private ArrayList<String> category = getDishesInfo("category");
+    private ArrayList<String> name = getWorkersInfo("name");
+    private ArrayList<String> position = getWorkersInfo("position");
 
     public void initialize()
     {
         loggedAs.setText(Main.loggedAs);
         tableView.setEditable(true);
-        listDishes();
+        listWorkers();
     }
 
     public void backAction()
@@ -53,35 +50,31 @@ public class DishesController
         StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
-    public void createDishAction()
+    public void createAccountAction()
     {
-        StageProperty.loadView("newDish", anchorPane, this.getClass());
+        StageProperty.loadView("register", anchorPane, this.getClass());
     }
 
     /**
-     * get data about dishes
-     * and list all dishes
+     * get data about workers
+     * and list all workers
      */
-    private void listDishes()
+    private void listWorkers()
     {
         TableColumn nameCol = new TableColumn("Name");
-        TableColumn<Object, Object> positionCol = new TableColumn<>("Category");
-        TableColumn<Object, Object> priceCol = new TableColumn<>("Price");
+        TableColumn<Object, Object> positionCol = new TableColumn<>("Position");
 
-        nameCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        nameCol.setPrefWidth(tableView.getPrefWidth() / 2);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        positionCol.setPrefWidth(tableView.getPrefWidth() / 3);
-        positionCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        positionCol.setPrefWidth(tableView.getPrefWidth() / 2);
+        positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
 
-        priceCol.setPrefWidth(tableView.getPrefWidth() / 3);
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        tableView.getColumns().addAll(nameCol, positionCol,priceCol);
+        tableView.getColumns().addAll(nameCol, positionCol);
 
         tableView.setRowFactory(tv ->
         {
-            TableRow<Dish> row = new TableRow<>();
+            TableRow<Person> row = new TableRow<>();
             row.setOnMouseClicked(mouseEvent ->
             {
                 if( !row.isEmpty() && mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1 )
@@ -90,18 +83,18 @@ public class DishesController
             return row;
         });
 
-        ObservableList<Dish> data = FXCollections.observableArrayList();
+        ObservableList<Person> data = FXCollections.observableArrayList();
 
         for( int i = 0; i < name.size(); i++ )
         {
-            data.add(new Dish(name.get(i), price.get(i), category.get(i)));
+            data.add(new Person(name.get(i), position.get(i)));
         }
 
-        FilteredList<Dish> flDish = new FilteredList(data, p -> true);
-        tableView.setItems(flDish);
+        FilteredList<Person> flPerson = new FilteredList(data, p -> true);
+        tableView.setItems(flPerson);
 
         search.setOnKeyReleased(keyEvent ->
-                flDish.setPredicate(p -> p.getCategory().toLowerCase().contains(search.getText().toLowerCase().trim()))
+                flPerson.setPredicate(p -> p.getPosition().toLowerCase().contains(search.getText().toLowerCase().trim()))
         );
 
         if( !loggedAs.getText().contains("Manager") )
@@ -121,15 +114,27 @@ public class DishesController
     {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem edit = new MenuItem("Edit");
-
+        MenuItem schedule = new MenuItem("Schedule");
 
         edit.setOnAction(actionEvent1 ->
         {
-            EditDishController.dishNameDB = name.get(index);
-            StageProperty.loadView("editDish", anchorPane, this.getClass());
+            EditWorkersController.userNameDB = name.get(index);
+            StageProperty.loadView("editWorkers", anchorPane, this.getClass());
         });
 
-        contextMenu.getItems().addAll(edit);
+        schedule.setOnAction(actionEvent1 ->
+        {
+            Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
+            StageProperty.loadStage( new FullCalendarView(YearMonth.now(), name.get(index) ).getView() );
+            primaryStage.close();
+        });
+
+        if( loggedAs.getText().contains("Manager") )
+        {
+            contextMenu.getItems().addAll(edit);
+        }
+        contextMenu.getItems().addAll(schedule);
+
 
         contextMenu.show(anchorPane, X, Y);
         anchorPane.setOnMousePressed(mouseEvent -> contextMenu.hide());
@@ -142,14 +147,14 @@ public class DishesController
      * @param attribute
      * @return
      */
-    public ArrayList<String> getDishesInfo( String attribute )
+    public static ArrayList<String> getWorkersInfo( String attribute )
     {
         ArrayList<String> result = new ArrayList<>();
         Connection connection = new ConnectionClass().getConnection();
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT " + attribute + " FROM dishes;";
+            String sql = "SELECT " + attribute + " FROM users;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
                 result.add(resultSet.getString(1));

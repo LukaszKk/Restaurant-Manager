@@ -1,4 +1,4 @@
-package app.manager;
+package app.manager.orders;
 
 public class Order {
     private String numberOrder;

@@ -1,4 +1,4 @@
-package app.manager;
+package app.manager.dishes;
 
 import app.main.Main;
 import app.main.StageProperty;

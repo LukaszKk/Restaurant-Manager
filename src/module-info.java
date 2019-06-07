@@ -13,4 +13,5 @@ module RestaurantManager
     opens app.waiter;
     opens app.manager.calendar;
     opens app.schedule;
+    opens app.manager.workers;
 }

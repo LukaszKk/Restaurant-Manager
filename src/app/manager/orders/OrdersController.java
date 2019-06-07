@@ -1,11 +1,7 @@
-package app.manager;
+package app.manager.orders;
 
-import app.manager.EditOrderController;
 import app.main.Main;
 import app.main.StageProperty;
-import app.manager.EditWorkersController;
-import app.manager.Person;
-import app.manager.calendar.FullCalendarView;
 import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,13 +10,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.YearMonth;
 import java.util.ArrayList;
 
 

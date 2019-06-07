@@ -67,7 +67,7 @@ public class EventController
 
         parentNode.setStyle("-fx-background-color: #ed3838");
 
-        Rectangle rect = new Rectangle(20,startHour*25 + 6, 120, (endHour-startHour)*25);
+        Rectangle rect = new Rectangle(20,startHour*25 + 6, 770, (endHour-startHour)*25);
         rect.setFill(Color.LIGHTBLUE);
         rect.setStroke(Color.BLUE);
 

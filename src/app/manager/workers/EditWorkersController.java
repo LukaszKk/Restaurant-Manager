@@ -1,4 +1,4 @@
-package app.manager;
+package app.manager.workers;
 
 import app.main.Main;
 import app.main.StageProperty;

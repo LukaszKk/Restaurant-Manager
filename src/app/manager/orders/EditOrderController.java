@@ -1,10 +1,8 @@
-package app.manager;
+package app.manager.orders;
 
-import app.manager.Dish;
-import app.manager.DishesController;
+import app.manager.dishes.Dish;
 import app.main.Main;
 import app.main.StageProperty;
-import app.manager.EditDishController;
 import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

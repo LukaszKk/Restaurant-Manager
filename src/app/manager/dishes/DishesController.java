@@ -1,8 +1,7 @@
-package app.manager;
+package app.manager.dishes;
 
 import app.main.Main;
 import app.main.StageProperty;
-import app.manager.calendar.FullCalendarView;
 import connectivity.ConnectionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,17 +10,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.YearMonth;
 import java.util.ArrayList;
 
 
-public class WorkersController
+public class DishesController
 {
     public AnchorPane anchorPane;
     public Hyperlink backButton;
@@ -30,14 +27,15 @@ public class WorkersController
     public Label loggedAs;
     public TableView tableView;
     public TextField search;
-    private ArrayList<String> name = getWorkersInfo("name");
-    private ArrayList<String> position = getWorkersInfo("position");
+    private ArrayList<String> name = getDishesInfo("nameDish");
+    private ArrayList<String> price = getDishesInfo("price");
+    private ArrayList<String> category = getDishesInfo("category");
 
     public void initialize()
     {
         loggedAs.setText(Main.loggedAs);
         tableView.setEditable(true);
-        listWorkers();
+        listDishes();
     }
 
     public void backAction()
@@ -50,31 +48,35 @@ public class WorkersController
         StageProperty.loadView("login", anchorPane, this.getClass());
     }
 
-    public void createAccountAction()
+    public void createDishAction()
     {
-        StageProperty.loadView("register", anchorPane, this.getClass());
+        StageProperty.loadView("newDish", anchorPane, this.getClass());
     }
 
     /**
-     * get data about workers
-     * and list all workers
+     * get data about dishes
+     * and list all dishes
      */
-    private void listWorkers()
+    private void listDishes()
     {
         TableColumn nameCol = new TableColumn("Name");
-        TableColumn<Object, Object> positionCol = new TableColumn<>("Position");
+        TableColumn<Object, Object> positionCol = new TableColumn<>("Category");
+        TableColumn<Object, Object> priceCol = new TableColumn<>("Price");
 
-        nameCol.setPrefWidth(tableView.getPrefWidth() / 2);
+        nameCol.setPrefWidth(tableView.getPrefWidth() / 3);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        positionCol.setPrefWidth(tableView.getPrefWidth() / 2);
-        positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
+        positionCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        positionCol.setCellValueFactory(new PropertyValueFactory<>("category"));
 
-        tableView.getColumns().addAll(nameCol, positionCol);
+        priceCol.setPrefWidth(tableView.getPrefWidth() / 3);
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        tableView.getColumns().addAll(nameCol, positionCol,priceCol);
 
         tableView.setRowFactory(tv ->
         {
-            TableRow<Person> row = new TableRow<>();
+            TableRow<Dish> row = new TableRow<>();
             row.setOnMouseClicked(mouseEvent ->
             {
                 if( !row.isEmpty() && mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1 )
@@ -83,18 +85,18 @@ public class WorkersController
             return row;
         });
 
-        ObservableList<Person> data = FXCollections.observableArrayList();
+        ObservableList<Dish> data = FXCollections.observableArrayList();
 
         for( int i = 0; i < name.size(); i++ )
         {
-            data.add(new Person(name.get(i), position.get(i)));
+            data.add(new Dish(name.get(i), price.get(i), category.get(i)));
         }
 
-        FilteredList<Person> flPerson = new FilteredList(data, p -> true);
-        tableView.setItems(flPerson);
+        FilteredList<Dish> flDish = new FilteredList(data, p -> true);
+        tableView.setItems(flDish);
 
         search.setOnKeyReleased(keyEvent ->
-                flPerson.setPredicate(p -> p.getPosition().toLowerCase().contains(search.getText().toLowerCase().trim()))
+                flDish.setPredicate(p -> p.getCategory().toLowerCase().contains(search.getText().toLowerCase().trim()))
         );
 
         if( !loggedAs.getText().contains("Manager") )
@@ -114,27 +116,15 @@ public class WorkersController
     {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem edit = new MenuItem("Edit");
-        MenuItem schedule = new MenuItem("schedule");
+
 
         edit.setOnAction(actionEvent1 ->
         {
-            EditWorkersController.userNameDB = name.get(index);
-            StageProperty.loadView("editWorkers", anchorPane, this.getClass());
+            EditDishController.dishNameDB = name.get(index);
+            StageProperty.loadView("editDish", anchorPane, this.getClass());
         });
 
-        schedule.setOnAction(actionEvent1 ->
-        {
-            Stage primaryStage = (Stage) anchorPane.getScene().getWindow();
-            StageProperty.loadStage( new FullCalendarView(YearMonth.now(), name.get(index) ).getView() );
-            primaryStage.close();
-        });
-
-        if( loggedAs.getText().contains("Manager") )
-        {
-            contextMenu.getItems().addAll(edit);
-        }
-        contextMenu.getItems().addAll(schedule);
-
+        contextMenu.getItems().addAll(edit);
 
         contextMenu.show(anchorPane, X, Y);
         anchorPane.setOnMousePressed(mouseEvent -> contextMenu.hide());
@@ -147,14 +137,14 @@ public class WorkersController
      * @param attribute
      * @return
      */
-    public static ArrayList<String> getWorkersInfo( String attribute )
+    public ArrayList<String> getDishesInfo( String attribute )
     {
         ArrayList<String> result = new ArrayList<>();
         Connection connection = new ConnectionClass().getConnection();
         try
         {
             Statement statement = connection.createStatement();
-            String sql = "SELECT " + attribute + " FROM users;";
+            String sql = "SELECT " + attribute + " FROM dishes;";
             ResultSet resultSet = statement.executeQuery(sql);
             while( resultSet.next() )
                 result.add(resultSet.getString(1));
